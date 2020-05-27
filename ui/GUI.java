@@ -1,7 +1,11 @@
 package com.company.main.ui;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GUI extends JFrame {
     private int width; // width, height of client app interface
@@ -20,15 +24,16 @@ public class GUI extends JFrame {
     private Container heroBuy5;
     private Container heroBuy6;
 
-    protected JTextArea textBoard; // board for showing text
-    protected JTextArea textBoard2;
+    protected JTextPane textBoard; // board for showing text
+    protected JTextPane textBoard2;
+    protected JTextPane systemInfo; // system debug
 
-    protected JTextArea info1; // gold price
-    protected JTextArea info2;
-    protected JTextArea info3;
-    protected JTextArea info4;
-    protected JTextArea info5;
-    protected JTextArea info6;
+    protected JTextPane info1; // gold price
+    protected JTextPane info2;
+    protected JTextPane info3;
+    protected JTextPane info4;
+    protected JTextPane info5;
+    protected JTextPane info6;
 
     protected JButton button1;//buttons
     protected JButton button2;
@@ -39,6 +44,8 @@ public class GUI extends JFrame {
 
     protected int playerId = 1; //temp change later
     protected int enemyId;
+
+    private ArrayList<JTextPane> allInfoPanels = new ArrayList<JTextPane>();
 
     public GUI(int w, int h){
         this.width = w;
@@ -56,15 +63,16 @@ public class GUI extends JFrame {
         heroBuy5 = new JPanel();
         heroBuy6 = new JPanel();
 
-        textBoard = new javax.swing.JTextArea();
-        textBoard2 = new javax.swing.JTextArea();
+        textBoard = new javax.swing.JTextPane();
+        textBoard2 = new javax.swing.JTextPane();
+        systemInfo = new javax.swing.JTextPane();
 
-        info1 = new javax.swing.JTextArea();
-        info2 = new javax.swing.JTextArea();
-        info3 = new javax.swing.JTextArea();
-        info4 = new javax.swing.JTextArea();
-        info5 = new javax.swing.JTextArea();
-        info6 = new javax.swing.JTextArea();
+        info1 = new javax.swing.JTextPane();
+        info2 = new javax.swing.JTextPane();
+        info3 = new javax.swing.JTextPane();
+        info4 = new javax.swing.JTextPane();
+        info5 = new javax.swing.JTextPane();
+        info6 = new javax.swing.JTextPane();
 
         button1 = new JButton("3 gold"); // creating buttons
         button2 = new JButton("2 gold");
@@ -73,12 +81,12 @@ public class GUI extends JFrame {
         button5 = new JButton("6 gold");
         button6 = new JButton("4 gold");
 
-        info1.setText("Wizard");
-        info2.setText("Knight");
-        info3.setText("Fairy");
-        info4.setText("Warden");
-        info5.setText("Dragon");
-        info6.setText("Upgrade");
+        info1.setText("\n\nWizard");
+        info2.setText("\n\nKnight");
+        info3.setText("\n\nFairy");
+        info4.setText("\n\nWarden");
+        info5.setText("\n\nDragon");
+        info6.setText("\n\nUpgrade");
     }
 
     public void setUpUi(){
@@ -103,26 +111,45 @@ public class GUI extends JFrame {
         container.add(upper);
         container.add(lower);
 
-        textBoard.setText("Wizard : 3 gold\n Knight : 2 gold\nFairy : 1 gold\nWarden : 2 gold\nDragon : 6 gold\nLvl Up : 4 gold");
-        textBoard.setWrapStyleWord(true);
-        textBoard.setLineWrap(true);
+        textBoard.setText("Your stats:\n\n "+ "HP: 100" + "\nGold: 5");
+        textBoard.setBackground( Color.CYAN);
         textBoard.setEditable(false);
 
-        textBoard.setWrapStyleWord(true);
-        textBoard.setLineWrap(true);
-        textBoard.setEditable(false);
+        StyledDocument doc = textBoard.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+
+        allInfoPanels.add(info1);
+        allInfoPanels.add(info2);
+        allInfoPanels.add(info3);
+        allInfoPanels.add(info4);
+        allInfoPanels.add(info5);
+        allInfoPanels.add(info6);
 
         statusBar.add(new JLabel("Your Gold: \n69"));
         statusBar.add(new JLabel("Your HP: \n69"));
+
+        for( JTextPane x : allInfoPanels){
+            x.setEditable(false);
+            x.setBackground(Color.gray);
+            StyledDocument doc2 = x.getStyledDocument();
+            StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+            doc2.setParagraphAttributes(0, doc2.getLength(), center, false);
+        }
+
 
         upper.add(statusBar); upper.add(gameScreen);
         heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); heroBuy6.add(info6);
         heroBuy1.add(button1); heroBuy2.add(button2); heroBuy3.add(button3); heroBuy4.add(button4); heroBuy5.add(button5); heroBuy6.add(button6);
 
         lower.add(textBoard);
-        lower.add(textBoard2);
+        lower.add(systemInfo);
         lower.add(heroBuy1); lower.add(heroBuy2); lower.add(heroBuy3); lower.add(heroBuy4); lower.add(heroBuy5); lower.add(heroBuy6);
 
+        systemInfo.setEditable(false);
+        systemInfo.setBackground(Color.pink);
+        systemInfo.setText("->You are player 1\n->Waiting for player 2");
         this.setVisible(true); // we can now see our app
     }
 }
