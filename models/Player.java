@@ -1,14 +1,18 @@
 package com.company.main.models;
 
+import com.company.main.services.Client;
+
 public class Player {
-    protected int health;
-    protected int gold;
-    protected int playerNumber;
+    public int health;
+    public int gold;
+    public int playerNumber;
 
     // set ups values
-    public Player(int h, int g, int pN){
+    public Player(int h, int g){
         this.health = h;
         this.gold = g;
-        this. playerNumber = pN;
+        Client cl = new Client();
+        cl.connectToServer();
     }
+
 }

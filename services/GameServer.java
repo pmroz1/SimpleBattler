@@ -11,6 +11,7 @@ public class GameServer {
     private ServerSocket serverSocket; //socket
     private ServerSideCon player1; // inner classes for handling player connections
     private ServerSideCon player2;
+    private int playerId = 0;
 
     //game variables
     private int connectedPlayers;
@@ -54,7 +55,11 @@ public class GameServer {
 
         public void run(){
             try{
-                dataOut.writeChars("Hello there general kenobi");
+                ++playerId;
+                //dataOut.writeChars("Hello there general kenobi");
+                System.out.println("sending player id to client");
+                dataOut.writeInt(playerId);
+
                 dataOut.flush();
                 //System.out.println("xd");
             } catch(IOException e){

@@ -1,5 +1,7 @@
 package com.company.main.ui;
 
+import com.company.main.models.Player;
+
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -10,6 +12,9 @@ import java.util.ArrayList;
 public class GUI extends JFrame {
     private int width; // width, height of client app interface
     private int height;
+
+    // Handle player
+    public Player p1;
 
     private Container container;//layout
     private Container upper;
@@ -45,7 +50,7 @@ public class GUI extends JFrame {
     protected int playerId = 1; //temp change later
     protected int enemyId;
 
-    private ArrayList<JTextPane> allInfoPanels = new ArrayList<JTextPane>();
+    private ArrayList<JTextPane> allInfoPanels = new ArrayList<>();
 
     public GUI(int w, int h){
         this.width = w;
@@ -87,6 +92,8 @@ public class GUI extends JFrame {
         info4.setText("\n\nWarden");
         info5.setText("\n\nDragon");
         info6.setText("\n\nUpgrade");
+
+        handlePlayer();
     }
 
     public void setUpUi(){
@@ -138,7 +145,6 @@ public class GUI extends JFrame {
             doc2.setParagraphAttributes(0, doc2.getLength(), center, false);
         }
 
-
         upper.add(statusBar); upper.add(gameScreen);
         heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); heroBuy6.add(info6);
         heroBuy1.add(button1); heroBuy2.add(button2); heroBuy3.add(button3); heroBuy4.add(button4); heroBuy5.add(button5); heroBuy6.add(button6);
@@ -151,5 +157,9 @@ public class GUI extends JFrame {
         systemInfo.setBackground(Color.pink);
         systemInfo.setText("->You are player 1\n->Waiting for player 2");
         this.setVisible(true); // we can now see our app
+    }
+
+    public void handlePlayer(){
+        p1 = new Player(100,6);
     }
 }
