@@ -7,7 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        GameServer gs = new GameServer();
         GUI ui = new GUI(756,480);
         ui.setUpUi();
     }

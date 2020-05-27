@@ -19,17 +19,25 @@ public class GameServer {
         connectedPlayers = 0;
 
         try{
-            serverSocket = new ServerSocket(69686); // we will use port 69686 for game
+            serverSocket = new ServerSocket(6968); // we will use port 69686 for game
         }catch(IOException e){
             System.out.println("From Server constructor :\n" + e);
         }
     }
     // connections handling
     public void acceptConnections(){
-        // pass
+        try{
+            Socket soc = serverSocket.accept();
+            ServerSideCon ssc = new ServerSideCon(soc);
+
+            Thread th = new Thread(ssc); // Initialize new thread handling Server Side Connections
+            th.start();
+        } catch(IOException e) {
+            System.out.println("Exception form AcceptConnections : " + e);
+        }
     }
 
-    private class ServerSideCon() implements Runnable{
+    private class ServerSideCon implements Runnable{
         private Socket socket;
         private DataInputStream dataIn;
         private DataOutputStream dataOut;
@@ -46,12 +54,18 @@ public class GameServer {
 
         public void run(){
             try{
-                //pass
-                System.out.println("xd");
+                dataOut.writeChars("Hello there general kenobi");
+                dataOut.flush();
+                //System.out.println("xd");
             } catch(IOException e){
                 System.out.println("Exception in SSC run(f) : " + e);
             }
         }
+    }
+
+    public static void main(String[] args){
+        GameServer gs = new GameServer();
+        gs.acceptConnections();
     }
 
 }
