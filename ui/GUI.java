@@ -12,9 +12,10 @@ import java.util.ArrayList;
 public class GUI extends JFrame {
     private int width; // width, height of client app interface
     private int height;
+    //private String gameLogs;
 
     // Handle player
-    public Player p1;
+    public Player playerInstance;
 
     private Container container;//layout
     private Container upper;
@@ -98,7 +99,7 @@ public class GUI extends JFrame {
 
     public void setUpUi(){
         this.setSize(width, height); // basic configuration
-        this.setTitle("Player #" + playerId + "Simple Autobattler");
+        this.setTitle("Simple Autobattler");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
 
@@ -118,7 +119,7 @@ public class GUI extends JFrame {
         container.add(upper);
         container.add(lower);
 
-        textBoard.setText("Your stats:\n\n "+ "HP: 100" + "\nGold: 5");
+        textBoard.setText("Game logs");
         textBoard.setBackground( Color.CYAN);
         textBoard.setEditable(false);
 
@@ -134,8 +135,8 @@ public class GUI extends JFrame {
         allInfoPanels.add(info5);
         allInfoPanels.add(info6);
 
-        statusBar.add(new JLabel("Your Gold: \n69"));
-        statusBar.add(new JLabel("Your HP: \n69"));
+        statusBar.add(new JLabel("Your HP: \n" + playerInstance.health ));
+        statusBar.add(new JLabel("Your Gold: \n" + playerInstance.gold));
 
         for( JTextPane x : allInfoPanels){
             x.setEditable(false);
@@ -155,11 +156,15 @@ public class GUI extends JFrame {
 
         systemInfo.setEditable(false);
         systemInfo.setBackground(Color.pink);
-        systemInfo.setText("->You are player 1\n->Waiting for player 2");
+        if(playerInstance.playerNumber == 1){
+            systemInfo.setText("->You are player " + playerInstance.playerNumber + "\n->Waiting for second player");
+        } else {
+            systemInfo.setText("->You are player " + playerInstance.playerNumber + "\nBoth players connected");
+        }
         this.setVisible(true); // we can now see our app
     }
 
     public void handlePlayer(){
-        p1 = new Player(100,6);
+        playerInstance = new Player(100,6);
     }
 }
