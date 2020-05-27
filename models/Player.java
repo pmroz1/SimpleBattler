@@ -13,6 +13,8 @@ public class Player {
         this.gold = g;
         Client cl = new Client();
         cl.connectToServer();
+        playerNumber = cl.player;
+        System.out.println("Im player no: " + playerNumber);
     }
 
 }

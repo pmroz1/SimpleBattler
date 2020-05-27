@@ -28,11 +28,21 @@ public class GameServer {
     // connections handling
     public void acceptConnections(){
         try{
-            Socket soc = serverSocket.accept();
-            ServerSideCon ssc = new ServerSideCon(soc);
+            while(connectedPlayers < 3) {
+                Socket soc = serverSocket.accept();
+                ServerSideCon ssc = new ServerSideCon(soc);
+                ++connectedPlayers;
+                System.out.println("I'm player no : " + connectedPlayers);
 
-            Thread th = new Thread(ssc); // Initialize new thread handling Server Side Connections
-            th.start();
+                if (connectedPlayers == 1) {
+                    player1 = ssc;
+                } else {
+                    player2 = ssc;
+                    System.out.println("Both players connected");
+                }
+                Thread th = new Thread(ssc); // Initialize new thread handling Server Side Connections
+                th.start();
+            }
         } catch(IOException e) {
             System.out.println("Exception form AcceptConnections : " + e);
         }
@@ -72,5 +82,4 @@ public class GameServer {
         GameServer gs = new GameServer();
         gs.acceptConnections();
     }
-
 }
