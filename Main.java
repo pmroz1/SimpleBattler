@@ -9,5 +9,6 @@ public class Main {
 	// write your code here
         GUI ui = new GUI(756,480);
         ui.setUpUi();
+        ui.buttonHandler();
     }
 }

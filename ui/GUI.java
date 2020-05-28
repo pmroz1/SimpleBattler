@@ -1,17 +1,23 @@
 package com.company.main.ui;
 
 import com.company.main.models.Player;
+import com.company.main.shared.GameLogic;
+import com.company.main.shared.Heroes;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI extends JFrame {
     private int width; // width, height of client app interface
     private int height;
+    private boolean isMyTurn = true;
+    String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "Upgrade"};
     //private String gameLogs;
 
     // Handle player
@@ -30,7 +36,7 @@ public class GUI extends JFrame {
     private Container heroBuy5;
     private Container heroBuy6;
 
-    protected JTextPane textBoard; // board for showing text
+    protected JTextPane gameLogs; // board for showing text
     protected JTextPane textBoard2;
     protected JTextPane systemInfo; // system debug
 
@@ -69,7 +75,7 @@ public class GUI extends JFrame {
         heroBuy5 = new JPanel();
         heroBuy6 = new JPanel();
 
-        textBoard = new javax.swing.JTextPane();
+        gameLogs = new javax.swing.JTextPane();
         textBoard2 = new javax.swing.JTextPane();
         systemInfo = new javax.swing.JTextPane();
 
@@ -83,7 +89,7 @@ public class GUI extends JFrame {
         button1 = new JButton("3 gold"); // creating buttons
         button2 = new JButton("2 gold");
         button3 = new JButton("1 gold");
-        button4 = new JButton("2 gold");
+        button4 = new JButton("5 gold");
         button5 = new JButton("6 gold");
         button6 = new JButton("4 gold");
 
@@ -119,11 +125,11 @@ public class GUI extends JFrame {
         container.add(upper);
         container.add(lower);
 
-        textBoard.setText("Game logs");
-        textBoard.setBackground( Color.CYAN);
-        textBoard.setEditable(false);
+        gameLogs.setText("Game logs");
+        gameLogs.setBackground( Color.CYAN);
+        gameLogs.setEditable(false);
 
-        StyledDocument doc = textBoard.getStyledDocument();
+        StyledDocument doc = gameLogs.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
@@ -150,7 +156,7 @@ public class GUI extends JFrame {
         heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); heroBuy6.add(info6);
         heroBuy1.add(button1); heroBuy2.add(button2); heroBuy3.add(button3); heroBuy4.add(button4); heroBuy5.add(button5); heroBuy6.add(button6);
 
-        lower.add(textBoard);
+        lower.add(gameLogs);
         lower.add(systemInfo);
         lower.add(heroBuy1); lower.add(heroBuy2); lower.add(heroBuy3); lower.add(heroBuy4); lower.add(heroBuy5); lower.add(heroBuy6);
 
@@ -161,10 +167,47 @@ public class GUI extends JFrame {
         } else {
             systemInfo.setText("->You are player " + playerInstance.playerNumber + "\nBoth players connected");
         }
+        toggleButtons();
         this.setVisible(true); // we can now see our app
     }
 
-    public void handlePlayer(){
+    public void toggleButtons(){ // makes buttons clickable or not :)
+        button1.setEnabled(isMyTurn);
+        button2.setEnabled(isMyTurn);
+        button3.setEnabled(isMyTurn);
+        button4.setEnabled(isMyTurn);
+        button5.setEnabled(isMyTurn);
+        button6.setEnabled(isMyTurn);
+    }
+
+    public void handlePlayer(){ // handling player interactions
         playerInstance = new Player(100,6);
+        if( playerInstance.playerNumber == 1){
+            isMyTurn = true;
+        } else if( playerId  == 0){
+            System.out.println("Error connecting to server!");
+        }
+        else {
+            isMyTurn = false;
+        }
+    }
+
+    public void buttonHandler(){
+        ActionListener al = e -> {
+            JButton buttonPressed = (JButton) e.getSource();
+            String buttonText = buttonPressed.getText();
+            System.out.println(buttonText);
+            int whichObject = GameLogic.getPressedButton(buttonText); // id of pressed button
+            //gameLogs.setText("U Bought" + champs[]);
+
+            System.out.println("Knight" + Heroes.Knight.ordinal());
+
+        };
+        button1.addActionListener(al);
+        button2.addActionListener(al);
+        button3.addActionListener(al);
+        button4.addActionListener(al);
+        button5.addActionListener(al);
+        button6.addActionListener(al);
     }
 }
