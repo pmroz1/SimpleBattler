@@ -14,6 +14,17 @@ public class GameLogic {
             default -> 0;
         };
     }
+    public static int getHeroPrice(String str){
+        return switch (str) {
+            case "3 gold" -> 3;
+            case "2 gold" -> 2;
+            case "1 gold" -> 1;
+            case "5 gold" -> 5;
+            case "6 gold" -> 6;
+            case "4 gold" -> 4;
+            default -> 0;
+        };
+    }
 }
 //        button1 = new JButton("3 gold"); // creating buttons
 //        button2 = new JButton("2 gold");

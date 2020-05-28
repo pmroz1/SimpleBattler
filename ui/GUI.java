@@ -53,6 +53,9 @@ public class GUI extends JFrame {
     protected JButton button4;
     protected JButton button5;
     protected JButton button6;
+    private JLabel GOLD;
+    private JLabel HEALTH;
+
 
     protected int playerId = 1; //temp change later
     protected int enemyId;
@@ -101,6 +104,9 @@ public class GUI extends JFrame {
         info6.setText("\n\nUpgrade");
 
         handlePlayer();
+
+        HEALTH = new JLabel("Your HP: \n" + playerInstance.health );
+        GOLD = new JLabel("Your Gold: \n" + playerInstance.gold );
     }
 
     public void setUpUi(){
@@ -128,6 +134,7 @@ public class GUI extends JFrame {
         gameLogs.setText("Game logs");
         gameLogs.setBackground( Color.CYAN);
         gameLogs.setEditable(false);
+        //gameLogs.set
 
         StyledDocument doc = gameLogs.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
@@ -141,8 +148,8 @@ public class GUI extends JFrame {
         allInfoPanels.add(info5);
         allInfoPanels.add(info6);
 
-        statusBar.add(new JLabel("Your HP: \n" + playerInstance.health ));
-        statusBar.add(new JLabel("Your Gold: \n" + playerInstance.gold));
+        statusBar.add(HEALTH);
+        statusBar.add(GOLD);
 
         for( JTextPane x : allInfoPanels){
             x.setEditable(false);
@@ -197,10 +204,10 @@ public class GUI extends JFrame {
             JButton buttonPressed = (JButton) e.getSource();
             String buttonText = buttonPressed.getText();
             System.out.println(buttonText);
-            int whichObject = GameLogic.getPressedButton(buttonText); // id of pressed button
-            //gameLogs.setText("U Bought" + champs[]);
 
-            System.out.println("Knight" + Heroes.Knight.ordinal());
+            int whichObject = GameLogic.getPressedButton(buttonText); // id of pressed button
+            gameLogs.setText("you bought " + champs[whichObject]);
+            playerInstance.gold -= GameLogic.getHeroPrice(buttonText);
         };
 
         button1.addActionListener(al);
