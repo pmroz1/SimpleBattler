@@ -1,6 +1,10 @@
 package com.company.main.shared;
 
 import com.company.main.models.Hero;
+import com.company.main.models.Player;
+import com.company.main.ui.GUI;
+
+import javax.swing.*;
 
 public class GameLogic {
     public static int getPressedButton(String str){
@@ -24,6 +28,15 @@ public class GameLogic {
             case "4 gold" -> 4;
             default -> 0;
         };
+    }
+
+    public static void showHeroes(Player p, GUI g){
+        for(int i = 0; i< p.myHeroes.length; ++i){
+            if(p.myHeroes[i][0] != 0){
+                p.myField.add(i);
+            }
+            g.gameScreen.add(new JLabel("Wruszkom jestem"));
+        }
     }
 }
 //        button1 = new JButton("3 gold"); // creating buttons

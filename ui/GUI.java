@@ -27,7 +27,7 @@ public class GUI extends JFrame {
     private Container upper;
     private Container lower;
     private Container statusBar;
-    private Container gameScreen;
+    public Container gameScreen;
 
     private Container heroBuy1;
     private Container heroBuy2;
@@ -69,7 +69,7 @@ public class GUI extends JFrame {
         container = this.getContentPane();
         lower = new JPanel();
         statusBar = new JPanel();
-        gameScreen = new JPanel();
+        gameScreen = new JList<Integer>();
         upper = new JPanel();
         heroBuy1 = new JPanel();
         heroBuy2 = new JPanel();
@@ -208,8 +208,11 @@ public class GUI extends JFrame {
             int whichObject = GameLogic.getPressedButton(buttonText); // id of pressed button
             gameLogs.setText("you bought " + champs[whichObject]);
             playerInstance.gold -= GameLogic.getHeroPrice(buttonText);
-        };
+            GOLD.setText("Your gold: " + playerInstance.gold);
+            playerInstance.myHeroes[whichObject][0] = playerInstance.myHeroes[whichObject][0]++;
+            GameLogic.showHeroes(playerInstance, this);
 
+        };
         button1.addActionListener(al);
         button2.addActionListener(al);
         button3.addActionListener(al);
