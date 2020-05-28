@@ -201,8 +201,8 @@ public class GUI extends JFrame {
             //gameLogs.setText("U Bought" + champs[]);
 
             System.out.println("Knight" + Heroes.Knight.ordinal());
-
         };
+
         button1.addActionListener(al);
         button2.addActionListener(al);
         button3.addActionListener(al);
