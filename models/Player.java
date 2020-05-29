@@ -11,15 +11,16 @@ public class Player {
     public int health;
     public int gold;
     public int playerNumber;
+    public Client cl;
     //public int [] heroCounter = {0,0,0,0,0,0};
     public ArrayList<Integer> listOfHeroes = new ArrayList<>();
-    public ArrayList<Integer> heroesOnField = new ArrayList();
+    public ArrayList<Integer> heroesOnField = new ArrayList<>();
 
     // set ups values
-    public Player(int h, int g){
-        this.health = h;
+    public Player(int hp, int g){
+        this.health = hp;
         this.gold = g;
-        Client cl = new Client();
+        cl = new Client();
         cl.connectToServer();
         playerNumber = cl.player;
         System.out.println("Im player no: " + playerNumber);

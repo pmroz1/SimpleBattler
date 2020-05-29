@@ -30,10 +30,35 @@ public class Client {
                 dataOut = new DataOutputStream(socket.getOutputStream());
 
                 player = dataIn.readInt();
+                if(player == 1){
+                    enemy = 2;
+                } else {
+                    enemy = 1;
+                }
                 System.out.println("Connected to server #player : " + player);
             } catch (IOException e) {
                 System.out.println("Exception thrown from CSC" + e);
             }
+        }
+
+        public void sendButtonPressed(int data){
+            try{
+                dataOut.writeInt(data);
+                dataOut.flush();
+            }catch(IOException e){
+                System.out.println("Exception formsenbuttonclient : " + e);
+            }
+        }
+
+        public int receiveButtonNum(){
+            int n = -1;
+            try{
+                n = dataIn.readInt();
+                System.out.println("Player #"+ enemy +" clicked button #" + n );
+            }catch(IOException e){
+                System.out.println("Exception form reciveBytton client : " + e);
+            }
+            return n;
         }
         //to do close connection
     }

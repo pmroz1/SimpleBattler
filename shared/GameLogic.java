@@ -13,7 +13,7 @@ public class GameLogic {
             case "1 gold" -> Heroes.Fairy.ordinal();
             case "5 gold" -> Heroes.Warden.ordinal();
             case "6 gold" -> Heroes.Dragon.ordinal();
-            case "Utility" -> Heroes.EndTurn.ordinal();
+            case "Next turn" -> Heroes.EndTurn.ordinal();
             default -> 0;
         };
     }
@@ -24,8 +24,8 @@ public class GameLogic {
             case "1 gold" -> 1;
             case "5 gold" -> 5;
             case "6 gold" -> 6;
-            case "Utility" -> 4;
-            default -> 0;
+            case "Next turn" -> -2;
+            default -> -400;
         };
     }
 
@@ -73,9 +73,9 @@ public class GameLogic {
         if(playerInstance.gold < 6){
             ui.button5.setEnabled(false);
         }
-        if(playerInstance.gold < 4){
-            ui.button6.setEnabled(false);
-        }
+//        if(playerInstance.gold < 4){
+//            ui.button6.setEnabled(false);
+//        }
     }
 }
 //        button1 = new JButton("3 gold"); // creating buttons

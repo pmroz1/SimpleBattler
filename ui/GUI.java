@@ -72,21 +72,21 @@ public class GUI extends JFrame {
         info3 = new javax.swing.JTextPane();
         info4 = new javax.swing.JTextPane();
         info5 = new javax.swing.JTextPane();
-        info6 = new javax.swing.JTextPane();
+        //info6 = new javax.swing.JTextPane();
 
         button1 = new JButton("3 gold"); // creating buttons
         button2 = new JButton("2 gold");
         button3 = new JButton("1 gold");
         button4 = new JButton("5 gold");
         button5 = new JButton("6 gold");
-        button6 = new JButton("4 gold");
+        button6 = new JButton("Next turn");
 
         info1.setText("\n\nWizard");
         info2.setText("\n\nKnight");
         info3.setText("\n\nFairy");
         info4.setText("\n\nWarden");
         info5.setText("\n\nDragon");
-        info6.setText("\n\nUpgrade");
+        //info6.setText("\n\nUpgrade");
     }
 
     public void setUpUi(){
@@ -104,7 +104,7 @@ public class GUI extends JFrame {
         heroBuy3.setLayout(new GridLayout(2,1));
         heroBuy4.setLayout(new GridLayout(2,1));
         heroBuy5.setLayout(new GridLayout(2,1));
-        heroBuy6.setLayout(new GridLayout(2,1));
+        heroBuy6.setLayout(new GridLayout(1,1));
 
         statusBar.setLayout(new GridLayout(2,1));
 
@@ -126,7 +126,7 @@ public class GUI extends JFrame {
         allInfoPanels.add(info3);
         allInfoPanels.add(info4);
         allInfoPanels.add(info5);
-        allInfoPanels.add(info6);
+        //allInfoPanels.add(info6);
 
         for( JTextPane x : allInfoPanels){
             x.setEditable(false);
@@ -137,7 +137,7 @@ public class GUI extends JFrame {
         }
 
         upper.add(statusBar); upper.add(heroesOnfield);
-        heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); heroBuy6.add(info6);
+        heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); //heroBuy6.add(info6);
         heroBuy1.add(button1); heroBuy2.add(button2); heroBuy3.add(button3); heroBuy4.add(button4); heroBuy5.add(button5); heroBuy6.add(button6);
 
         lower.add(gameLogs);

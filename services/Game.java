@@ -15,7 +15,7 @@ public class Game {
     public Player playerInstance;
 
 
-    String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "Upgrade"};
+    String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "NEXT TURN"};
 
     public Game(){
         ui = new GUI(756,480);
@@ -64,6 +64,7 @@ public class Game {
             GameLogic.showHeroes(playerInstance, ui);
             GameLogic.checkIfEnoughGold(playerInstance, ui);
 
+            
 
         };
         ui.button1.addActionListener(al);
