@@ -11,7 +11,7 @@ public class Player {
     public int gold;
     public int playerNumber;
     //public int [] heroCounter = {0,0,0,0,0,0};
-    public int[][] myHeroes = new int[6][1];
+    public int[][] myHeroes = new int[6][2];
     public List<Integer> myField;
 
     // set ups values

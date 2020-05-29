@@ -17,10 +17,8 @@ public class Game {
     public Game(){
         ui = new GUI(756,480);
         ui.setUpUi();
-        //ui.buttonHandler();
-
-        handlePlayer();
         buttonHandler();
+        handlePlayer();
 
         ui.HEALTH = new JLabel("Your HP: \n" + playerInstance.health );
         ui.GOLD = new JLabel("Your Gold: \n" + playerInstance.gold );
@@ -32,6 +30,9 @@ public class Game {
         }
         ui.statusBar.add(ui.HEALTH);
         ui.statusBar.add(ui.GOLD);
+
+        ui.toggleButtons();
+
     }
 
     public void handlePlayer(){ // handling player interactions
@@ -42,6 +43,7 @@ public class Game {
             System.out.println("Error connecting to server!");
         }
         else {
+            System.out.println("not my turn");
             ui.isMyTurn = false;
         }
     }
@@ -58,6 +60,7 @@ public class Game {
             ui.GOLD.setText("Your gold: " + playerInstance.gold);
             playerInstance.myHeroes[whichObject][1] = playerInstance.myHeroes[whichObject][1]++;
             GameLogic.showHeroes(playerInstance, ui);
+            checkIfEnoughGold();
         };
         ui.button1.addActionListener(al);
         ui.button2.addActionListener(al);
@@ -65,6 +68,28 @@ public class Game {
         ui.button4.addActionListener(al);
         ui.button5.addActionListener(al);
         ui.button6.addActionListener(al);
+    }
+
+    public void checkIfEnoughGold(){
+        if(playerInstance.gold < 3){
+            ui.button1.setEnabled(false);
+        }
+        if(playerInstance.gold < 2){
+            ui.button2.setEnabled(false);
+        }
+        if(playerInstance.gold < 1){
+            ui.button3.setEnabled(false);
+        }
+        if(playerInstance.gold < 5){
+            ui.button4.setEnabled(false);
+        }
+        if(playerInstance.gold < 6){
+            ui.button5.setEnabled(false);
+        }
+        if(playerInstance.gold < 4){
+            ui.button6.setEnabled(false);
+        }
+
     }
 
 }

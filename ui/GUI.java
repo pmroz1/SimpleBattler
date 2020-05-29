@@ -1,16 +1,10 @@
 package com.company.main.ui;
 
-import com.company.main.models.Player;
-import com.company.main.shared.GameLogic;
-import com.company.main.shared.Heroes;
-
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI extends JFrame {
@@ -22,7 +16,7 @@ public class GUI extends JFrame {
     public Container upper;
     public Container lower;
     public Container statusBar;
-    public Container gameScreen;
+    public Container heroesOnfield;
 
     public Container heroBuy1;
     public Container heroBuy2;
@@ -60,7 +54,7 @@ public class GUI extends JFrame {
         container = this.getContentPane();
         lower = new JPanel();
         statusBar = new JPanel();
-        gameScreen = new JTextArea("Heroes on field: ");
+        heroesOnfield = new JPanel();
         upper = new JPanel();
         heroBuy1 = new JPanel();
         heroBuy2 = new JPanel();
@@ -142,7 +136,7 @@ public class GUI extends JFrame {
             doc2.setParagraphAttributes(0, doc2.getLength(), center, false);
         }
 
-        upper.add(statusBar); upper.add(gameScreen);
+        upper.add(statusBar); upper.add(heroesOnfield);
         heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); heroBuy6.add(info6);
         heroBuy1.add(button1); heroBuy2.add(button2); heroBuy3.add(button3); heroBuy4.add(button4); heroBuy5.add(button5); heroBuy6.add(button6);
 

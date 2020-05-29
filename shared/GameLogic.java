@@ -1,6 +1,5 @@
 package com.company.main.shared;
 
-import com.company.main.models.Hero;
 import com.company.main.models.Player;
 import com.company.main.ui.GUI;
 
@@ -34,9 +33,10 @@ public class GameLogic {
         for(int i = 0; i< p.myHeroes.length; ++i){
             if(p.myHeroes[i][0] != 0){
                 p.myField.add(i);
+                System.out.println("My heroes: " + i);
             }
-            g.gameScreen.add(new JTextArea("Wruszkom jestem"));
         }
+        g.heroesOnfield.add(new JLabel("\"Heroes on field: \" XD"));
     }
 }
 //        button1 = new JButton("3 gold"); // creating buttons
