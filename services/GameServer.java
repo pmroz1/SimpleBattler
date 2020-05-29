@@ -11,7 +11,10 @@ public class GameServer {
     private ServerSocket serverSocket; //socket
     private ServerSideCon player1; // inner classes for handling player connections
     private ServerSideCon player2;
-    private int playerId = 0;
+    private boolean GAMEON = true;
+
+    private int playerOneButtonClicked;
+    private int playerTwoButtonClicked;
 
     //game variables
     private int connectedPlayers;
@@ -30,15 +33,15 @@ public class GameServer {
         try{
             while(connectedPlayers < 3) {
                 Socket soc = serverSocket.accept();
-                ServerSideCon ssc = new ServerSideCon(soc);
                 ++connectedPlayers;
-                System.out.println("I'm player no : " + connectedPlayers);
+                ServerSideCon ssc = new ServerSideCon(soc, connectedPlayers);
+                System.out.println("connected players : " + connectedPlayers);
 
                 if (connectedPlayers == 1) {
                     player1 = ssc;
                 } else {
                     player2 = ssc;
-                    System.out.println("Both players connected");
+                    //System.out.println("Both players connected");
                 }
                 Thread th = new Thread(ssc); // Initialize new thread handling Server Side Connections
                 th.start();
@@ -50,11 +53,13 @@ public class GameServer {
 
     private class ServerSideCon implements Runnable{
         private Socket socket;
+        private int playerId;
         private DataInputStream dataIn;
         private DataOutputStream dataOut;
 
-        public ServerSideCon(Socket socketIn){
+        public ServerSideCon(Socket socketIn, int data){
             socket = socketIn;
+            playerId = data;
             try{
                 dataIn = new DataInputStream(socket.getInputStream());
                 dataOut = new DataOutputStream(socket.getOutputStream());
@@ -63,17 +68,46 @@ public class GameServer {
             }
         }
 
+        public void closeConnection(){
+            try{
+                socket.close();
+                System.out.print("-----Connection Closed-----");
+            }catch (IOException e){
+                System.out.println(e);
+            }
+        }
+
         public void run(){
             try{
-                ++playerId;
                 //dataOut.writeChars("Hello there general kenobi");
-                System.out.println("sending player id to client");
+                System.out.println("sending player id to client #" + playerId);
                 dataOut.writeInt(playerId);
 
-                dataOut.flush();
+                while(GAMEON){
+                    if(playerId == 1){
+                        playerOneButtonClicked = dataIn.readInt();
+                        System.out.println("Player one clicked  #" + playerOneButtonClicked);
+                        player2.sendButton(playerOneButtonClicked);
+                    } else {
+                        playerTwoButtonClicked = dataIn.readInt();
+                        System.out.println("Player one clicked  #" + playerTwoButtonClicked);
+                        player1.sendButton(playerOneButtonClicked);
+                    }
+                }
+                //dataOut.flush();
                 //System.out.println("xd");
+                player1.closeConnection();
+                player2.closeConnection();
             } catch(IOException e){
                 System.out.println("Exception in SSC run(f) : " + e);
+            }
+        }
+        public void sendButton(int input){
+            try{
+                dataOut.writeInt(input);
+                dataOut.flush();
+            }catch(IOException e){
+                System.out.println("Exception in SSC send button : " + e);
             }
         }
     }
@@ -82,6 +116,4 @@ public class GameServer {
         GameServer gs = new GameServer();
         gs.acceptConnections();
     }
-
-
 }

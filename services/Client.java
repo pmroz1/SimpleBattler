@@ -35,7 +35,7 @@ public class Client {
                 } else {
                     enemy = 1;
                 }
-                System.out.println("Connected to server #player : " + player);
+                System.out.println("Connected to server #player : " + player + "\n\n");
             } catch (IOException e) {
                 System.out.println("Exception thrown from CSC" + e);
             }
@@ -50,7 +50,7 @@ public class Client {
             }
         }
 
-        public int receiveButtonNum(){
+        public int receiveButtonPressed(){
             int n = -1;
             try{
                 n = dataIn.readInt();

@@ -1,5 +1,7 @@
 package com.company.main.ui;
 
+import com.company.main.services.Game;
+
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -147,7 +149,13 @@ public class GUI extends JFrame {
         systemInfo.setEditable(false);
         systemInfo.setBackground(Color.pink);
 
-        toggleButtons();
+//        Thread t = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Game.handleTurn();
+//            }
+//        });
+//        t.start();
         this.setVisible(true); // we can now see our app
     }
 

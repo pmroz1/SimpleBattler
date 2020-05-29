@@ -33,7 +33,13 @@ public class Game {
         }
         ui.statusBar.add(ui.HEALTH);
         ui.statusBar.add(ui.GOLD);
-        ui.toggleButtons();
+//        Thread t = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                handlePlayer();
+//            }
+//        });
+//        t.start();
     }
 
     public void handlePlayer(){ // handling player interactions
@@ -44,9 +50,10 @@ public class Game {
             System.out.println("Error connecting to server!");
         }
         else {
-            System.out.println("not my turn");
             ui.isMyTurn = false;
+            System.out.println("not my turn");
         }
+        ui.toggleButtons();
     }
 
     public void buttonHandler(){
@@ -63,9 +70,20 @@ public class Game {
             playerInstance.listOfHeroes.add(whichObject);
             GameLogic.showHeroes(playerInstance, ui);
             GameLogic.checkIfEnoughGold(playerInstance, ui);
+            if(whichObject == 5){
+                ui.isMyTurn = false;
+                ui.toggleButtons();
+            }
 
-            
+            playerInstance.cl.csc.sendButtonPressed(whichObject);
 
+            Thread th = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    handleTurn();
+                }
+            });
+            th.start();
         };
         ui.button1.addActionListener(al);
         ui.button2.addActionListener(al);
@@ -75,6 +93,17 @@ public class Game {
         ui.button6.addActionListener(al);
     }
 
+    public void handleTurn() {
+        int n = playerInstance.cl.csc.receiveButtonPressed();
+        ui.gameLogs.setText("Enemy clicked button #" + n);
+    }
 
+//        enemyPoints += values[n-1];
+//        System.out.println("enemy has #" + enemyPoints + " points");
+//        if(playerID == 1 && maxTurns == turnsMade){
+//            checkWinner();
+//        } else {
+//            buttonsEnabled = true;
+//        }
 
 }
