@@ -2,6 +2,7 @@ package com.company.main.models;
 
 import com.company.main.services.Client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,8 @@ public class Player {
     public int gold;
     public int playerNumber;
     //public int [] heroCounter = {0,0,0,0,0,0};
-    public int[][] myHeroes = new int[6][2];
-    public List<Integer> myField;
+    public ArrayList<Integer> listOfHeroes = new ArrayList<>();
+    public ArrayList<Integer> heroesOnField = new ArrayList();
 
     // set ups values
     public Player(int h, int g){
@@ -22,9 +23,6 @@ public class Player {
         cl.connectToServer();
         playerNumber = cl.player;
         System.out.println("Im player no: " + playerNumber);
-        for (int i = 0; i< myHeroes.length; ++i){
-            myHeroes[i][0] = 0;
-        }
     }
 
 }

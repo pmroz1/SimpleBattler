@@ -12,7 +12,7 @@ public class Client {
 
     public void connectToServer(){
         csc = new ClientSideCon();
-        System.out.println("-----xd-----");
+        System.out.println("-----Client-----");
     }
 
     //inner class for handling client connection

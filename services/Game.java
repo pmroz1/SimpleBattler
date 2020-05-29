@@ -6,12 +6,15 @@ import com.company.main.ui.GUI;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Game {
     public int playerId = 1; //temp change later
     public int enemyId;
     public GUI ui;
     public Player playerInstance;
+
+
     String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "Upgrade"};
 
     public Game(){
@@ -30,9 +33,7 @@ public class Game {
         }
         ui.statusBar.add(ui.HEALTH);
         ui.statusBar.add(ui.GOLD);
-
         ui.toggleButtons();
-
     }
 
     public void handlePlayer(){ // handling player interactions
@@ -59,9 +60,10 @@ public class Game {
             playerInstance.gold -= GameLogic.getHeroPrice(buttonText);
             ui.GOLD.setText("Your gold: " + playerInstance.gold);
 
-            playerInstance.myHeroes[whichObject][1] = playerInstance.myHeroes[whichObject][1]++;
+            playerInstance.listOfHeroes.add(whichObject);
             GameLogic.showHeroes(playerInstance, ui);
-            checkIfEnoughGold();
+            GameLogic.checkIfEnoughGold(playerInstance, ui);
+
 
         };
         ui.button1.addActionListener(al);
@@ -72,26 +74,6 @@ public class Game {
         ui.button6.addActionListener(al);
     }
 
-    public void checkIfEnoughGold(){
-        if(playerInstance.gold < 3){
-            ui.button1.setEnabled(false);
-        }
-        if(playerInstance.gold < 2){
-            ui.button2.setEnabled(false);
-        }
-        if(playerInstance.gold < 1){
-            ui.button3.setEnabled(false);
-        }
-        if(playerInstance.gold < 5){
-            ui.button4.setEnabled(false);
-        }
-        if(playerInstance.gold < 6){
-            ui.button5.setEnabled(false);
-        }
-        if(playerInstance.gold < 4){
-            ui.button6.setEnabled(false);
-        }
 
-    }
 
 }

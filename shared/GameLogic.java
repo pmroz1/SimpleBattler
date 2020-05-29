@@ -13,7 +13,7 @@ public class GameLogic {
             case "1 gold" -> Heroes.Fairy.ordinal();
             case "5 gold" -> Heroes.Warden.ordinal();
             case "6 gold" -> Heroes.Dragon.ordinal();
-            case "4 gold" -> Heroes.Upgrade.ordinal();
+            case "Utility" -> Heroes.EndTurn.ordinal();
             default -> 0;
         };
     }
@@ -24,19 +24,58 @@ public class GameLogic {
             case "1 gold" -> 1;
             case "5 gold" -> 5;
             case "6 gold" -> 6;
-            case "4 gold" -> 4;
+            case "Utility" -> 4;
             default -> 0;
         };
     }
 
     public static void showHeroes(Player p, GUI g){
-        for(int i = 0; i< p.myHeroes.length; ++i){
-            if(p.myHeroes[i][1] != 0){
-                p.myField.add(i);
-                System.out.println("My heroes: " + i);
+        for(int x : p.listOfHeroes){
+            System.out.println("X in show Heroes : " + x );
+            switch(x){
+                case 0:
+                    g.heroesOnfield.add(new JLabel("Wizard"));
+                    break;
+                case 1:
+                    g.heroesOnfield.add(new JLabel("Knight"));
+                    break;
+                case 2:
+                    g.heroesOnfield.add(new JLabel("Fairy"));
+                    break;
+                case 3:
+                    g.heroesOnfield.add(new JLabel("Warden"));
+                    break;
+                case 4:
+                    g.heroesOnfield.add(new JLabel("Dragon"));
+                    break;
+                case 5:
+                    //END TURN TODO
+                    break;
             }
+            p.heroesOnField.add(x);
         }
-        g.heroesOnfield.add(new JLabel("\"Heroes on field: \" XD"));
+        p.listOfHeroes.clear();
+    }
+
+    public static void checkIfEnoughGold(Player playerInstance, GUI ui){
+        if(playerInstance.gold < 3){
+            ui.button1.setEnabled(false);
+        }
+        if(playerInstance.gold < 2){
+            ui.button2.setEnabled(false);
+        }
+        if(playerInstance.gold < 1){
+            ui.button3.setEnabled(false);
+        }
+        if(playerInstance.gold < 5){
+            ui.button4.setEnabled(false);
+        }
+        if(playerInstance.gold < 6){
+            ui.button5.setEnabled(false);
+        }
+        if(playerInstance.gold < 4){
+            ui.button6.setEnabled(false);
+        }
     }
 }
 //        button1 = new JButton("3 gold"); // creating buttons
