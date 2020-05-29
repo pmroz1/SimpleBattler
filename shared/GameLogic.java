@@ -35,7 +35,7 @@ public class GameLogic {
             if(p.myHeroes[i][0] != 0){
                 p.myField.add(i);
             }
-            g.gameScreen.add(new JLabel("Wruszkom jestem"));
+            g.gameScreen.add(new JTextArea("Wruszkom jestem"));
         }
     }
 }

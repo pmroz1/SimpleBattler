@@ -14,53 +14,44 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI extends JFrame {
-    private int width; // width, height of client app interface
-    private int height;
-    private boolean isMyTurn = true;
-    String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "Upgrade"};
-    //private String gameLogs;
+    public int width; // width, height of client app interface
+    public int height;
+    public boolean isMyTurn = true;
 
-    // Handle player
-    public Player playerInstance;
-
-    private Container container;//layout
-    private Container upper;
-    private Container lower;
-    private Container statusBar;
+    public Container container;//layout
+    public Container upper;
+    public Container lower;
+    public Container statusBar;
     public Container gameScreen;
 
-    private Container heroBuy1;
-    private Container heroBuy2;
-    private Container heroBuy3;
-    private Container heroBuy4;
-    private Container heroBuy5;
-    private Container heroBuy6;
+    public Container heroBuy1;
+    public Container heroBuy2;
+    public Container heroBuy3;
+    public Container heroBuy4;
+    public Container heroBuy5;
+    public Container heroBuy6;
 
-    protected JTextPane gameLogs; // board for showing text
-    protected JTextPane textBoard2;
-    protected JTextPane systemInfo; // system debug
+    public JTextPane gameLogs; // board for showing text
+    public JTextPane textBoard2;
+    public JTextPane systemInfo; // system debug
 
-    protected JTextPane info1; // gold price
-    protected JTextPane info2;
-    protected JTextPane info3;
-    protected JTextPane info4;
-    protected JTextPane info5;
-    protected JTextPane info6;
+    public JTextPane info1; // gold price
+    public JTextPane info2;
+    public JTextPane info3;
+    public JTextPane info4;
+    public JTextPane info5;
+    public JTextPane info6;
 
-    protected JButton button1;//buttons
-    protected JButton button2;
-    protected JButton button3;
-    protected JButton button4;
-    protected JButton button5;
-    protected JButton button6;
-    private JLabel GOLD;
-    private JLabel HEALTH;
+    public JButton button1;//buttons
+    public JButton button2;
+    public JButton button3;
+    public JButton button4;
+    public JButton button5;
+    public JButton button6;
+    public JLabel GOLD;
+    public JLabel HEALTH;
 
-
-    protected int playerId = 1; //temp change later
-    protected int enemyId;
-
-    private ArrayList<JTextPane> allInfoPanels = new ArrayList<>();
+    public ArrayList<JTextPane> allInfoPanels = new ArrayList<>();
 
     public GUI(int w, int h){
         this.width = w;
@@ -69,7 +60,7 @@ public class GUI extends JFrame {
         container = this.getContentPane();
         lower = new JPanel();
         statusBar = new JPanel();
-        gameScreen = new JList<Integer>();
+        gameScreen = new JTextArea("Heroes on field: ");
         upper = new JPanel();
         heroBuy1 = new JPanel();
         heroBuy2 = new JPanel();
@@ -102,11 +93,6 @@ public class GUI extends JFrame {
         info4.setText("\n\nWarden");
         info5.setText("\n\nDragon");
         info6.setText("\n\nUpgrade");
-
-        handlePlayer();
-
-        HEALTH = new JLabel("Your HP: \n" + playerInstance.health );
-        GOLD = new JLabel("Your Gold: \n" + playerInstance.gold );
     }
 
     public void setUpUi(){
@@ -148,9 +134,6 @@ public class GUI extends JFrame {
         allInfoPanels.add(info5);
         allInfoPanels.add(info6);
 
-        statusBar.add(HEALTH);
-        statusBar.add(GOLD);
-
         for( JTextPane x : allInfoPanels){
             x.setEditable(false);
             x.setBackground(Color.gray);
@@ -169,11 +152,7 @@ public class GUI extends JFrame {
 
         systemInfo.setEditable(false);
         systemInfo.setBackground(Color.pink);
-        if(playerInstance.playerNumber == 1){
-            systemInfo.setText("->You are player " + playerInstance.playerNumber + "\n->Waiting for second player");
-        } else {
-            systemInfo.setText("->You are player " + playerInstance.playerNumber + "\nBoth players connected");
-        }
+
         toggleButtons();
         this.setVisible(true); // we can now see our app
     }
@@ -185,39 +164,5 @@ public class GUI extends JFrame {
         button4.setEnabled(isMyTurn);
         button5.setEnabled(isMyTurn);
         button6.setEnabled(isMyTurn);
-    }
-
-    public void handlePlayer(){ // handling player interactions
-        playerInstance = new Player(100,6);
-        if( playerInstance.playerNumber == 1){
-            isMyTurn = true;
-        } else if( playerId  == 0){
-            System.out.println("Error connecting to server!");
-        }
-        else {
-            isMyTurn = false;
-        }
-    }
-
-    public void buttonHandler(){
-        ActionListener al = e -> {
-            JButton buttonPressed = (JButton) e.getSource();
-            String buttonText = buttonPressed.getText();
-            System.out.println(buttonText);
-
-            int whichObject = GameLogic.getPressedButton(buttonText); // id of pressed button
-            gameLogs.setText("you bought " + champs[whichObject]);
-            playerInstance.gold -= GameLogic.getHeroPrice(buttonText);
-            GOLD.setText("Your gold: " + playerInstance.gold);
-            playerInstance.myHeroes[whichObject][0] = playerInstance.myHeroes[whichObject][0]++;
-            GameLogic.showHeroes(playerInstance, this);
-
-        };
-        button1.addActionListener(al);
-        button2.addActionListener(al);
-        button3.addActionListener(al);
-        button4.addActionListener(al);
-        button5.addActionListener(al);
-        button6.addActionListener(al);
     }
 }
