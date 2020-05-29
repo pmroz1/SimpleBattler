@@ -31,7 +31,7 @@ public class GameLogic {
 
     public static void showHeroes(Player p, GUI g){
         for(int i = 0; i< p.myHeroes.length; ++i){
-            if(p.myHeroes[i][0] != 0){
+            if(p.myHeroes[i][1] != 0){
                 p.myField.add(i);
                 System.out.println("My heroes: " + i);
             }

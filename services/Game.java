@@ -58,9 +58,11 @@ public class Game {
             ui.gameLogs.setText("you bought " + champs[whichObject]);
             playerInstance.gold -= GameLogic.getHeroPrice(buttonText);
             ui.GOLD.setText("Your gold: " + playerInstance.gold);
+
             playerInstance.myHeroes[whichObject][1] = playerInstance.myHeroes[whichObject][1]++;
             GameLogic.showHeroes(playerInstance, ui);
             checkIfEnoughGold();
+
         };
         ui.button1.addActionListener(al);
         ui.button2.addActionListener(al);
