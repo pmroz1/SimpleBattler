@@ -94,13 +94,14 @@ public class Game {
     }
 
     public void handleTurn() {
+        GameLogic.checkIfEnoughGold(playerInstance, ui);
         int n = playerInstance.cl.csc.receiveButtonPressed();
         System.out.println("enemy clicked: " + n);
         ui.gameLogs.setText("Enemy clicked button #" + n);
         ui.isMyTurn = true;
+
         ui.toggleButtons();
     }
-
 //        enemyPoints += values[n-1];
 //        System.out.println("enemy has #" + enemyPoints + " points");
 //        if(playerID == 1 && maxTurns == turnsMade){
@@ -108,5 +109,4 @@ public class Game {
 //        } else {
 //            buttonsEnabled = true;
 //        }
-
 }
