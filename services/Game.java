@@ -23,12 +23,7 @@ public class Game {
         buttonHandler();
         handlePlayer();
 
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handleTurn();
-            }
-        });
+        Thread t = new Thread(this::handleTurn);
         t.start();
 
         ui.HEALTH = new JLabel("Your HP: \n" + playerInstance.health );
@@ -68,30 +63,26 @@ public class Game {
         ActionListener al = e -> {
             JButton buttonPressed = (JButton) e.getSource();
             String buttonText = buttonPressed.getText();
-            System.out.println(buttonText);
+            //System.out.println(buttonText);
 
             int whichObject = GameLogic.getPressedButton(buttonText); // id of pressed button
             ui.gameLogs.setText("you bought " + champs[whichObject]);
             playerInstance.gold -= GameLogic.getHeroPrice(buttonText);
             ui.GOLD.setText("Your gold: " + playerInstance.gold);
 
+            ui.gameLogs.setText("You clicked button #" + whichObject+  "Waiting for player #" + enemyId);
+            ui.toggleButtons();
+
             playerInstance.listOfHeroes.add(whichObject);
             GameLogic.showHeroes(playerInstance, ui);
             GameLogic.checkIfEnoughGold(playerInstance, ui);
-            if(whichObject == 5){
-                ui.isMyTurn = false;
-                ui.toggleButtons();
-            }
-
-            System.out.println("im here");
+//            if(whichObject == 5){
+//                ui.isMyTurn = false;
+//                ui.toggleButtons();
+//            }
             playerInstance.cl.csc.sendButtonPressed(whichObject);
 
-            Thread th = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    handleTurn();
-                }
-            });
+            Thread th = new Thread(this::handleTurn);
             th.start();
         };
         ui.button1.addActionListener(al);
@@ -106,6 +97,8 @@ public class Game {
         int n = playerInstance.cl.csc.receiveButtonPressed();
         System.out.println("enemy clicked: " + n);
         ui.gameLogs.setText("Enemy clicked button #" + n);
+        ui.isMyTurn = true;
+        ui.toggleButtons();
     }
 
 //        enemyPoints += values[n-1];

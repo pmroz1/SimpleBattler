@@ -73,9 +73,9 @@ public class GameLogic {
         if(playerInstance.gold < 6){
             ui.button5.setEnabled(false);
         }
-//        if(playerInstance.gold < 4){
-//            ui.button6.setEnabled(false);
-//        }
+        if(playerInstance.gold < 4){
+            ui.button6.setEnabled(false);
+      }
     }
 }
 //        button1 = new JButton("3 gold"); // creating buttons
