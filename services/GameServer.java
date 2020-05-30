@@ -90,8 +90,8 @@ public class GameServer {
                         player2.sendButton(playerOneButtonClicked);
                     } else {
                         playerTwoButtonClicked = dataIn.readInt();
-                        System.out.println("Player one clicked  #" + playerTwoButtonClicked);
-                        player1.sendButton(playerOneButtonClicked);
+                        System.out.println("Player two clicked  #" + playerTwoButtonClicked);
+                        player1.sendButton(playerTwoButtonClicked);
                     }
                 }
                 //dataOut.flush();
@@ -104,6 +104,7 @@ public class GameServer {
         }
         public void sendButton(int input){
             try{
+                System.out.println("Sending pressed button #" + input);
                 dataOut.writeInt(input);
                 dataOut.flush();
             }catch(IOException e){

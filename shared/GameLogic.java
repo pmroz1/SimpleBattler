@@ -31,7 +31,7 @@ public class GameLogic {
 
     public static void showHeroes(Player p, GUI g){
         for(int x : p.listOfHeroes){
-            System.out.println("X in show Heroes : " + x );
+            //System.out.println("X in show Heroes : " + x );
             switch(x){
                 case 0:
                     g.heroesOnfield.add(new JLabel("Wizard"));

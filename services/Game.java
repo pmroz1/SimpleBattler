@@ -23,6 +23,14 @@ public class Game {
         buttonHandler();
         handlePlayer();
 
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                handleTurn();
+            }
+        });
+        t.start();
+
         ui.HEALTH = new JLabel("Your HP: \n" + playerInstance.health );
         ui.GOLD = new JLabel("Your Gold: \n" + playerInstance.gold );
 
@@ -75,6 +83,7 @@ public class Game {
                 ui.toggleButtons();
             }
 
+            System.out.println("im here");
             playerInstance.cl.csc.sendButtonPressed(whichObject);
 
             Thread th = new Thread(new Runnable() {
@@ -95,6 +104,7 @@ public class Game {
 
     public void handleTurn() {
         int n = playerInstance.cl.csc.receiveButtonPressed();
+        System.out.println("enemy clicked: " + n);
         ui.gameLogs.setText("Enemy clicked button #" + n);
     }
 
