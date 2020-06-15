@@ -1,6 +1,7 @@
 package com.company.main.ui;
 
 import com.company.main.services.Game;
+import com.company.main.shared.GameLogic;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
@@ -159,12 +160,21 @@ public class GUI extends JFrame {
         this.setVisible(true); // we can now see our app
     }
 
-    public void toggleButtons(){ // makes buttons clickable or not :)
-        button1.setEnabled(isMyTurn);
-        button2.setEnabled(isMyTurn);
-        button3.setEnabled(isMyTurn);
-        button4.setEnabled(isMyTurn);
-        button5.setEnabled(isMyTurn);
-        button6.setEnabled(isMyTurn);
+    public void toggleButtonsEnabled(){ // makes buttons clickable or not :)
+        button1.setEnabled(true);
+        button2.setEnabled(true);
+        button3.setEnabled(true);
+        button4.setEnabled(true);
+        button5.setEnabled(true);
+        button6.setEnabled(true);
+    }
+
+    public void toggleButtonsNotEnabled(){ // makes buttons clickable or not :)
+        button1.setEnabled(false);
+        button2.setEnabled(false);
+        button3.setEnabled(false);
+        button4.setEnabled(false);
+        button5.setEnabled(false);
+        button6.setEnabled(false);
     }
 }

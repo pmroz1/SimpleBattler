@@ -70,12 +70,23 @@ public class GameLogic {
         if(playerInstance.gold < 5){
             ui.button4.setEnabled(false);
         }
-        if(playerInstance.gold < 6){
+        if(playerInstance.gold < 6) {
             ui.button5.setEnabled(false);
         }
-        if(playerInstance.gold < 4){
-            ui.button6.setEnabled(false);
-      }
+        if(ui.isMyTurn){
+            ui.button6.setEnabled(true);
+        }
+    }
+
+    public static void toggleButtons(GUI ui, Player playerInstance){
+        if(ui.isMyTurn){
+            System.out.println("toggling in GL");
+            ui.toggleButtonsEnabled();
+            checkIfEnoughGold(playerInstance, ui);
+        }else{
+            System.out.println("toggling in GL else");
+            ui.toggleButtonsNotEnabled();
+        }
     }
 }
 //        button1 = new JButton("3 gold"); // creating buttons
