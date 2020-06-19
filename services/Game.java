@@ -6,9 +6,6 @@ import com.company.main.ui.GUI;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import static com.company.main.shared.Heroes.Wizard;
 
 public class Game {
     public int playerId = 1; //temp change later
@@ -68,9 +65,9 @@ public class Game {
         System.out.println("enemy clicked: " + n);
         System.out.println(GameLogic.getHeroByButton(n));
         if(n != 5){
-            playerInstance.enemyHeroesOnField.add(playerInstance.Heroes.get(n));
+            playerInstance.listOfEnemyHeroes.add(playerInstance.Heroes.get(n));
         }
-        System.out.println(playerInstance.enemyHeroesOnField);
+        System.out.println(playerInstance.listOfEnemyHeroes);
         ui.gameLogs.setText("Enemy clicked button #" + n);
         ui.isMyTurn = true;
         System.out.println("toggling in HT");
@@ -98,6 +95,8 @@ public class Game {
             playerInstance.listOfHeroes.add(whichObject);
             GameLogic.showHeroes(playerInstance, ui);
             GameLogic.checkIfEnoughGold(playerInstance, ui);
+            playerInstance.health -= GameLogic.calculateDMG(playerInstance);
+            ui.HEALTH.setText("Your hp: "+playerInstance.health);
 //            if(whichObject == 5){
 //                ui.isMyTurn = false;
 //                ui.toggleButtons();

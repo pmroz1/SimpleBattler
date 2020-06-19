@@ -1,5 +1,6 @@
 package com.company.main.shared;
 
+import com.company.main.models.Hero;
 import com.company.main.models.Player;
 import com.company.main.ui.GUI;
 
@@ -64,8 +65,14 @@ public class GameLogic {
                     //END TURN TODO
                     break;
             }
+
             p.heroesOnField.add(x);
         }
+        for(Hero y : p.listOfEnemyHeroes){
+            g.enemyHeroesOnField.add(new JLabel(y.name));
+            p.enemyHeroesOnField.add(y);
+        }
+        p.listOfEnemyHeroes.clear();
         p.listOfHeroes.clear();
     }
 
@@ -99,6 +106,14 @@ public class GameLogic {
             System.out.println("toggling in GL else");
             ui.toggleButtonsNotEnabled();
         }
+    }
+
+    public static int calculateDMG(Player playerInstance){
+        int dmgThisTurn = 0;
+        for(Hero x : playerInstance.enemyHeroesOnField){
+            dmgThisTurn += x.Attack;
+        }
+        return dmgThisTurn;
     }
 }
 //        button1 = new JButton("3 gold"); // creating buttons

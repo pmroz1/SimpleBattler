@@ -15,7 +15,9 @@ public class Player {
     //public int [] heroCounter = {0,0,0,0,0,0};
     public ArrayList<Integer> listOfHeroes = new ArrayList<>();
     public ArrayList<Integer> heroesOnField = new ArrayList<>();
+
     public ArrayList<Hero> enemyHeroesOnField = new ArrayList();
+    public ArrayList<Hero> listOfEnemyHeroes = new ArrayList();
 
     public ArrayList<Hero> Heroes = new ArrayList<>();
 
