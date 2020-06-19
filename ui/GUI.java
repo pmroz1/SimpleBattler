@@ -1,8 +1,5 @@
 package com.company.main.ui;
 
-import com.company.main.services.Game;
-import com.company.main.shared.GameLogic;
-
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -19,7 +16,11 @@ public class GUI extends JFrame {
     public Container upper;
     public Container lower;
     public Container statusBar;
-    public Container heroesOnfield;
+
+    public Container battleground;
+
+    public Container myHeroesOnField;
+    public Container enemyHeroesOnField;
 
     public Container heroBuy1;
     public Container heroBuy2;
@@ -57,7 +58,11 @@ public class GUI extends JFrame {
         container = this.getContentPane();
         lower = new JPanel();
         statusBar = new JPanel();
-        heroesOnfield = new JPanel();
+
+        battleground = new JPanel();
+        myHeroesOnField = new JPanel();
+        enemyHeroesOnField  = new JPanel();
+
         upper = new JPanel();
         heroBuy1 = new JPanel();
         heroBuy2 = new JPanel();
@@ -102,6 +107,8 @@ public class GUI extends JFrame {
         upper.setLayout(new GridLayout(2,1));
         lower.setLayout(new GridLayout(1,6));
 
+        battleground.setLayout(new GridLayout(2,1));
+
         heroBuy1.setLayout(new GridLayout(2,1));
         heroBuy2.setLayout(new GridLayout(2,1));
         heroBuy3.setLayout(new GridLayout(2,1));
@@ -113,6 +120,7 @@ public class GUI extends JFrame {
 
         container.add(upper);
         container.add(lower);
+
 
         gameLogs.setText("Game logs");
         gameLogs.setBackground( Color.CYAN);
@@ -139,7 +147,11 @@ public class GUI extends JFrame {
             doc2.setParagraphAttributes(0, doc2.getLength(), center, false);
         }
 
-        upper.add(statusBar); upper.add(heroesOnfield);
+        upper.add(statusBar); upper.add(battleground);
+        battleground.add(enemyHeroesOnField);
+        battleground.add(myHeroesOnField);
+
+
         heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); //heroBuy6.add(info6);
         heroBuy1.add(button1); heroBuy2.add(button2); heroBuy3.add(button3); heroBuy4.add(button4); heroBuy5.add(button5); heroBuy6.add(button6);
 
@@ -177,4 +189,18 @@ public class GUI extends JFrame {
         button5.setEnabled(false);
         button6.setEnabled(false);
     }
+
+    public class drawer extends JPanel{
+        private int squareX = 50;
+        private int squareY = 50;
+        private int squareW = 20;
+        private int squareH = 20;
+
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g); // do your superclass's painting routine first, and then paint on top of it.
+            g.setColor(Color.RED);
+            g.fillRect(squareX,squareY,squareW,squareH);
+        }
+    }
+
 }

@@ -29,24 +29,36 @@ public class GameLogic {
         };
     }
 
+    public static int getHeroByButton(int pressedButton){
+        return switch (pressedButton) {
+            case 1 -> Heroes.Wizard.ordinal();
+            case 2 -> Heroes.Knight.ordinal();
+            case 3 -> Heroes.Fairy.ordinal();
+            case 4 -> Heroes.Warden.ordinal();
+            case 5 -> Heroes.Dragon.ordinal();
+            case 6 -> Heroes.EndTurn.ordinal();
+            default -> 0;
+        };
+    }
+
     public static void showHeroes(Player p, GUI g){
         for(int x : p.listOfHeroes){
             //System.out.println("X in show Heroes : " + x );
             switch(x){
                 case 0:
-                    g.heroesOnfield.add(new JLabel("Wizard"));
+                    g.myHeroesOnField.add(new JLabel("Wizard"));
                     break;
                 case 1:
-                    g.heroesOnfield.add(new JLabel("Knight"));
+                    g.myHeroesOnField.add(new JLabel("Knight"));
                     break;
                 case 2:
-                    g.heroesOnfield.add(new JLabel("Fairy"));
+                    g.myHeroesOnField.add(new JLabel("Fairy"));
                     break;
                 case 3:
-                    g.heroesOnfield.add(new JLabel("Warden"));
+                    g.myHeroesOnField.add(new JLabel("Warden"));
                     break;
                 case 4:
-                    g.heroesOnfield.add(new JLabel("Dragon"));
+                    g.myHeroesOnField.add(new JLabel("Dragon"));
                     break;
                 case 5:
                     //END TURN TODO

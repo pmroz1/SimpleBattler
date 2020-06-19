@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static com.company.main.shared.Heroes.Wizard;
+
 public class Game {
     public int playerId = 1; //temp change later
     public int enemyId;
@@ -64,6 +66,11 @@ public class Game {
         GameLogic.checkIfEnoughGold(playerInstance, ui);
         int n = playerInstance.cl.csc.receiveButtonPressed();
         System.out.println("enemy clicked: " + n);
+
+        if(GameLogic.getHeroByButton(n) != 6){
+            playerInstance.enemyHeroesOnField.add(playerInstance.Heroes.get(n-1));
+        }
+
         ui.gameLogs.setText("Enemy clicked button #" + n);
         ui.isMyTurn = true;
         System.out.println("toggling in HT");
