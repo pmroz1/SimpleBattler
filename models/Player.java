@@ -33,25 +33,25 @@ public class Player {
 
     public void initHeroes(){
         int i;
-        for (i = 0 ; i< 6; ++i){
+        for (i = 0 ; i< 5; ++i){
             switch (i) {
-                case 1 -> {
+                case 0 -> {
                     Hero wizard = new Hero("Wizard", 3, 1);
                     Heroes.add(wizard);
                 }
-                case 2 -> {
+                case 1 -> {
                     Hero Knight = new Hero("Knight", 2, 2);
                     Heroes.add(Knight);
                 }
-                case 3 -> {
+                case 2 -> {
                     Hero Fairy = new Hero("Fairy", 1, 1);
                     Heroes.add(Fairy);
                 }
-                case 4 -> {
+                case 3 -> {
                     Hero Warden = new Hero("Warden", 1, 5);
                     Heroes.add(Warden);
                 }
-                case 5 -> {
+                case 4 -> {
                     Hero Dragon = new Hero("Dragon", 4, 5);
                     Heroes.add(Dragon);
                 }
