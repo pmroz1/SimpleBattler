@@ -166,15 +166,6 @@ public class GUI extends JFrame {
 
         frame.setResizable(false);
         frame.setSize(width,height);
-//        Thread t = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Game.handleTurn();
-//            }
-//        });
-//        t.start();
-
-        //this.setVisible(true); // we can now see our app
         frame.show();
     }
 

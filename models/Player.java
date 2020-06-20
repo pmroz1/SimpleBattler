@@ -12,7 +12,7 @@ public class Player {
     public int gold;
     public int playerNumber;
     public Client cl;
-    //public int [] heroCounter = {0,0,0,0,0,0};
+
     public ArrayList<Integer> listOfHeroes = new ArrayList<>();
     public ArrayList<Integer> heroesOnField = new ArrayList<>();
 
@@ -61,5 +61,4 @@ public class Player {
         }
         System.out.println(Heroes);
     }
-
 }

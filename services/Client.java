@@ -50,16 +50,15 @@ public class Client {
             }
         }
 
-        public int receiveButtonPressed(){
+        public int receiveButtonPressed() {
             int n = -1;
-            try{
+            try {
                 n = dataIn.readInt();
-                System.out.println("Player #"+ enemy +" clicked button #" + n );
-            }catch(IOException e){
+                System.out.println("Player #" + enemy + " clicked button #" + n);
+            } catch (IOException e) {
                 System.out.println("Exception form reciveBytton client : " + e);
             }
             return n;
         }
-        //to do close connection
     }
 }

@@ -82,16 +82,12 @@ public class GameServer {
                 while(GAMEON){
                     if(playerId == 1){
                         playerOneButtonClicked = dataIn.readInt();
-                        System.out.println("Player one clicked  #" + playerOneButtonClicked);
                         player2.sendButton(playerOneButtonClicked);
                     } else {
                         playerTwoButtonClicked = dataIn.readInt();
-                        System.out.println("Player two clicked  #" + playerTwoButtonClicked);
                         player1.sendButton(playerTwoButtonClicked);
                     }
                 }
-                //dataOut.flush();
-                //System.out.println("xd");
                 player1.closeConnection();
                 player2.closeConnection();
             } catch(IOException e){
@@ -100,7 +96,6 @@ public class GameServer {
         }
         public void sendButton(int input){
             try{
-                System.out.println("Sending pressed button #" + input);
                 dataOut.writeInt(input);
                 dataOut.flush();
             }catch(IOException e){

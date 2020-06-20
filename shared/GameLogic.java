@@ -44,7 +44,6 @@ public class GameLogic {
 
     public static void showHeroes(Player p, GUI g){
         for(int x : p.listOfHeroes){
-            //System.out.println("X in show Heroes : " + x );
             switch(x){
                 case 0:
                     g.myHeroesOnField.add(new JLabel("Wizard"));
@@ -99,11 +98,9 @@ public class GameLogic {
 
     public static void toggleButtons(GUI ui, Player playerInstance){
         if(ui.isMyTurn){
-            System.out.println("toggling in GL");
             ui.toggleButtonsEnabled();
             checkIfEnoughGold(playerInstance, ui);
         }else{
-            System.out.println("toggling in GL else");
             ui.toggleButtonsNotEnabled();
         }
     }
@@ -116,9 +113,3 @@ public class GameLogic {
         return dmgThisTurn;
     }
 }
-//        button1 = new JButton("3 gold"); // creating buttons
-//        button2 = new JButton("2 gold");
-//        button3 = new JButton("1 gold");
-//        button4 = new JButton("5 gold");
-//        button5 = new JButton("6 gold");
-//        button6 = new JButton("4 gold");

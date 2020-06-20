@@ -34,13 +34,6 @@ public class Game {
         }
         ui.statusBar.add(ui.HEALTH);
         ui.statusBar.add(ui.GOLD);
-//        Thread t = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                handlePlayer();
-//            }
-//        });
-//        t.start();
     }
 
     public void handlePlayer(){ // handling player interactions
@@ -48,21 +41,17 @@ public class Game {
         if( playerInstance.playerNumber == 1){
             ui.isMyTurn = true;
         } else if( playerId  == 0){
-            System.out.println("Error connecting to server!");
+            ui.gameLogs.setText("Error connecting to server!");
         }
         else {
             ui.isMyTurn = false;
-            System.out.println("not my turn");
         }
-        System.out.println("toggling in HP");
         GameLogic.toggleButtons(ui, playerInstance);
     }
 
     public void handleTurn() {
         GameLogic.checkIfEnoughGold(playerInstance, ui);
         int n = playerInstance.cl.csc.receiveButtonPressed();
-        System.out.println("enemy clicked: " + n);
-        System.out.println(GameLogic.getHeroByButton(n));
 
         if( n == 69){
             //ui.frame.setVisible(false);
@@ -76,11 +65,9 @@ public class Game {
             if(n != 5){
                 playerInstance.listOfEnemyHeroes.add(playerInstance.Heroes.get(n));
             }
-            System.out.println(playerInstance.listOfEnemyHeroes);
             ui.gameLogs.setText("Enemy clicked button #" + n);
             ui.isMyTurn = true;
             System.out.println("toggling in HT");
-
             GameLogic.toggleButtons(ui, playerInstance);
         }
     }
@@ -89,13 +76,11 @@ public class Game {
         ActionListener al = e -> {
             JButton buttonPressed = (JButton) e.getSource();
             String buttonText = buttonPressed.getText();
-            //System.out.println(buttonText);
 
             int whichObject = GameLogic.getPressedButton(buttonText); // id of pressed button
             ui.gameLogs.setText("you bought " + champs[whichObject]);
             playerInstance.gold -= GameLogic.getHeroPrice(buttonText);
             ui.GOLD.setText("Your gold: " + playerInstance.gold);
-            System.out.println("toggling in BH");
 
             ui.gameLogs.setText("You clicked button #" + whichObject+  "Waiting for player #" + enemyId);
 
@@ -110,7 +95,6 @@ public class Game {
             ui.gameLogs.setText("You took " + GameLogic.calculateDMG(playerInstance) + " DMG");
 
             if(playerInstance.health < 1){
-                //ui.frame.setVisible(false);
                 JFrame defeat = new JFrame();
                 defeat.setSize(200,40);
                 defeat.setResizable(false);
@@ -121,10 +105,6 @@ public class Game {
             } else {
                 playerInstance.cl.csc.sendButtonPressed(whichObject);
             }
-//            if(whichObject == 5){
-//                ui.isMyTurn = false;
-//                ui.toggleButtons();
-//            }
             Thread th = new Thread(this::handleTurn);
             th.start();
         };
@@ -135,11 +115,4 @@ public class Game {
         ui.button5.addActionListener(al);
         ui.button6.addActionListener(al);
     }
-//        enemyPoints += values[n-1];
-//        System.out.println("enemy has #" + enemyPoints + " points");
-//        if(playerID == 1 && maxTurns == turnsMade){
-//            checkWinner();
-//        } else {
-//            buttonsEnabled = true;
-//        }
 }
