@@ -11,6 +11,7 @@ public class GUI extends JFrame {
     public int width; // width, height of client app interface
     public int height;
     public boolean isMyTurn = true;
+    public JFrame frame = new JFrame();
 
     public Container container;//layout
     public Container upper;
@@ -103,6 +104,7 @@ public class GUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
 
+        frame.add(container);
         container.setLayout(new GridLayout(2,0)); // adding grid layout to our container
         upper.setLayout(new GridLayout(2,1));
         lower.setLayout(new GridLayout(1,6));
@@ -162,6 +164,8 @@ public class GUI extends JFrame {
         systemInfo.setEditable(false);
         systemInfo.setBackground(Color.pink);
 
+        frame.setResizable(false);
+        frame.setSize(width,height);
 //        Thread t = new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -169,7 +173,9 @@ public class GUI extends JFrame {
 //            }
 //        });
 //        t.start();
-        this.setVisible(true); // we can now see our app
+
+        //this.setVisible(true); // we can now see our app
+        frame.show();
     }
 
     public void toggleButtonsEnabled(){ // makes buttons clickable or not :)

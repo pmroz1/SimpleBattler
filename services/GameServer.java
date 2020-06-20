@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.ServerError;
 
 public class GameServer {
     private ServerSocket serverSocket; //socket
@@ -41,7 +40,6 @@ public class GameServer {
                     player1 = ssc;
                 } else {
                     player2 = ssc;
-                    //System.out.println("Both players connected");
                 }
                 Thread th = new Thread(ssc); // Initialize new thread handling Server Side Connections
                 th.start();
@@ -79,8 +77,6 @@ public class GameServer {
 
         public void run(){
             try{
-                //dataOut.writeChars("Hello there general kenobi");
-                System.out.println("sending player id to client #" + playerId);
                 dataOut.writeInt(playerId);
 
                 while(GAMEON){

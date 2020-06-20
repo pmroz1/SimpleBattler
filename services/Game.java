@@ -13,7 +13,6 @@ public class Game {
     public GUI ui;
     public Player playerInstance;
 
-
     String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "NEXT TURN"};
 
     public Game(){
@@ -45,7 +44,7 @@ public class Game {
     }
 
     public void handlePlayer(){ // handling player interactions
-        playerInstance = new Player(100,6);
+        playerInstance = new Player(100,100);
         if( playerInstance.playerNumber == 1){
             ui.isMyTurn = true;
         } else if( playerId  == 0){
@@ -64,15 +63,26 @@ public class Game {
         int n = playerInstance.cl.csc.receiveButtonPressed();
         System.out.println("enemy clicked: " + n);
         System.out.println(GameLogic.getHeroByButton(n));
-        if(n != 5){
-            playerInstance.listOfEnemyHeroes.add(playerInstance.Heroes.get(n));
-        }
-        System.out.println(playerInstance.listOfEnemyHeroes);
-        ui.gameLogs.setText("Enemy clicked button #" + n);
-        ui.isMyTurn = true;
-        System.out.println("toggling in HT");
 
-        GameLogic.toggleButtons(ui, playerInstance);
+        if( n == 69){
+            //ui.frame.setVisible(false);
+            JFrame win = new JFrame();
+            win.setSize(200,40);
+            win.setResizable(false);
+            win.add(new JTextArea("VICTORY!"));
+            win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            win.setVisible(true);
+        } else {
+            if(n != 5){
+                playerInstance.listOfEnemyHeroes.add(playerInstance.Heroes.get(n));
+            }
+            System.out.println(playerInstance.listOfEnemyHeroes);
+            ui.gameLogs.setText("Enemy clicked button #" + n);
+            ui.isMyTurn = true;
+            System.out.println("toggling in HT");
+
+            GameLogic.toggleButtons(ui, playerInstance);
+        }
     }
 
     public void buttonHandler(){
@@ -88,7 +98,7 @@ public class Game {
             System.out.println("toggling in BH");
 
             ui.gameLogs.setText("You clicked button #" + whichObject+  "Waiting for player #" + enemyId);
-            playerInstance.cl.csc.sendButtonPressed(whichObject);
+
             ui.isMyTurn = !ui.isMyTurn;
             GameLogic.toggleButtons(ui, playerInstance);
 
@@ -97,6 +107,20 @@ public class Game {
             GameLogic.checkIfEnoughGold(playerInstance, ui);
             playerInstance.health -= GameLogic.calculateDMG(playerInstance);
             ui.HEALTH.setText("Your hp: "+playerInstance.health);
+            ui.gameLogs.setText("You took " + GameLogic.calculateDMG(playerInstance) + " DMG");
+
+            if(playerInstance.health < 1){
+                //ui.frame.setVisible(false);
+                JFrame defeat = new JFrame();
+                defeat.setSize(200,40);
+                defeat.setResizable(false);
+                defeat.add(new JTextArea("Defeat!"));
+                defeat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                defeat.setVisible(true);
+                playerInstance.cl.csc.sendButtonPressed(69);
+            } else {
+                playerInstance.cl.csc.sendButtonPressed(whichObject);
+            }
 //            if(whichObject == 5){
 //                ui.isMyTurn = false;
 //                ui.toggleButtons();
