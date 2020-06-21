@@ -58,7 +58,7 @@ public class Game {
      * Metoda odpowiedzialna za zainicjalizowanie klasy gracza
      */
     public void handlePlayer(){ // handling player interactions
-        playerInstance = new Player(100,100);
+        playerInstance = new Player(100,6);
         if( playerInstance.playerNumber == 1){
             ui.isMyTurn = true;
         } else if( playerId  == 0){

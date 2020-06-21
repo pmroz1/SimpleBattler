@@ -10,7 +10,6 @@ import java.net.Socket;
  * <h1>GameServer</h1>
  * Klasa - server odpowiedzialną za serwerową część działania gry.
  * Klasę tę należy uruchomić w pierwszej kolejności
- *
  * @author  Piotr Mróz
  * @since   2020-06-17
  * */
@@ -20,9 +19,7 @@ public class GameServer {
     private ServerSideCon player1; // inner classes for handling player connections
     private ServerSideCon player2;
     private boolean gameOn = true;
-
     private int playerOneButtonClicked;
-
     //game variables
     private int connectedPlayers;
 

@@ -9,8 +9,6 @@ public class Main {
      * Jest to funkcja główna z której wywołujemy klasę GAME odpowiedzialną za działanie całej gry
      * <p>
      * @param args Unused.
-
-     *
      * @author  Piotr Mróz
      * @since   2020-06-17
      */

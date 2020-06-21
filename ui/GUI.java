@@ -63,6 +63,7 @@ public class GUI extends JFrame {
     /**
      * Konstruktor domyślny klasy GUI.
      * Nie przyjmuje żadnych parametrów, odpowiada za zainicjalizowanie GUI
+     *
      */
     public GUI(int w, int h){
         this.width = w;

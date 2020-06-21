@@ -8,7 +8,7 @@ import java.net.Socket;
 
 /**
  * <h1>GameServer</h1>
- * Klasa - server odpowiedzialną za część klienta działania gry.
+ * Klasa - Klient odpowiedzialną za część klienta działania gry.
  * Klasę tę jest wywoływana z klasy gracza( Player)
  * @author  Piotr Mróz
  * @since   2020-06-17

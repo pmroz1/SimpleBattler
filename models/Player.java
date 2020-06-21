@@ -51,7 +51,7 @@ public class Player {
     }
 
     /**
-     * metod inicjalizuję listę(Hero) postaci
+     * metoda inicjalizuje listę(Hero) postaci
      */
     public void initHeroes(){
         int i;
