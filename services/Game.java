@@ -12,6 +12,7 @@ public class Game {
     public int enemyId;
     public GUI ui;
     public Player playerInstance;
+    private boolean firstTurn = true;
 
     String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "NEXT TURN"};
 
@@ -26,14 +27,17 @@ public class Game {
 
         ui.HEALTH = new JLabel("Your HP: \n" + playerInstance.health );
         ui.GOLD = new JLabel("Your Gold: \n" + playerInstance.gold );
+        ui.ENEMYHEALTH = new JLabel("Enemy HP: \n" + playerInstance.enemyHealth);
 
         if(playerInstance.playerNumber == 1){
             ui.systemInfo.setText("->You are player " + playerInstance.playerNumber + "\n->Waiting for second player");
         } else {
             ui.systemInfo.setText("->You are player " + playerInstance.playerNumber + "\nBoth players connected");
         }
+        firstTurn = !firstTurn;
         ui.statusBar.add(ui.HEALTH);
         ui.statusBar.add(ui.GOLD);
+        ui.statusBar.add(ui.ENEMYHEALTH);
     }
 
     public void handlePlayer(){ // handling player interactions
@@ -51,12 +55,15 @@ public class Game {
 
     public void handleTurn() {
         GameLogic.checkIfEnoughGold(playerInstance, ui);
+        if(!firstTurn){
+            ui.systemInfo.setText("->You are player " + playerInstance.playerNumber + "\nBoth players connected");
+        }
         int n = playerInstance.cl.csc.receiveButtonPressed();
 
         if( n == 69){
             //ui.frame.setVisible(false);
             JFrame win = new JFrame();
-            win.setSize(200,40);
+            win.setSize(200,70);
             win.setResizable(false);
             win.add(new JTextArea("VICTORY!"));
             win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,12 +98,14 @@ public class Game {
             GameLogic.showHeroes(playerInstance, ui);
             GameLogic.checkIfEnoughGold(playerInstance, ui);
             playerInstance.health -= GameLogic.calculateDMG(playerInstance);
+            playerInstance.enemyHealth -= GameLogic.calculateEnemyHealth(playerInstance);
             ui.HEALTH.setText("Your hp: "+playerInstance.health);
             ui.gameLogs.setText("You took " + GameLogic.calculateDMG(playerInstance) + " DMG");
+            ui.ENEMYHEALTH.setText("Enemy HP: \n" + playerInstance.enemyHealth);
 
             if(playerInstance.health < 1){
                 JFrame defeat = new JFrame();
-                defeat.setSize(200,40);
+                defeat.setSize(200,70);
                 defeat.setResizable(false);
                 defeat.add(new JTextArea("Defeat!"));
                 defeat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

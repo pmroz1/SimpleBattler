@@ -39,7 +39,6 @@ public class GUI extends JFrame {
     public JTextPane info3;
     public JTextPane info4;
     public JTextPane info5;
-    public JTextPane info6;
 
     public JButton button1;//buttons
     public JButton button2;
@@ -49,6 +48,7 @@ public class GUI extends JFrame {
     public JButton button6;
     public JLabel GOLD;
     public JLabel HEALTH;
+    public JLabel ENEMYHEALTH;
 
     public ArrayList<JTextPane> allInfoPanels = new ArrayList<>();
 
@@ -153,6 +153,9 @@ public class GUI extends JFrame {
         battleground.add(enemyHeroesOnField);
         battleground.add(myHeroesOnField);
 
+        statusBar.setBackground(Color.orange);
+        enemyHeroesOnField.setBackground(Color.RED);
+        myHeroesOnField.setBackground(Color.GREEN);
 
         heroBuy1.add(info1); heroBuy2.add(info2); heroBuy3.add(info3); heroBuy4.add(info4); heroBuy5.add(info5); //heroBuy6.add(info6);
         heroBuy1.add(button1); heroBuy2.add(button2); heroBuy3.add(button3); heroBuy4.add(button4); heroBuy5.add(button5); heroBuy6.add(button6);

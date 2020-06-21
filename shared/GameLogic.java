@@ -5,6 +5,7 @@ import com.company.main.models.Player;
 import com.company.main.ui.GUI;
 
 import javax.swing.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameLogic {
     public static int getPressedButton(String str){
@@ -111,5 +112,29 @@ public class GameLogic {
             dmgThisTurn += x.Attack;
         }
         return dmgThisTurn;
+    }
+
+    public static int calculateEnemyHealth(Player playerInstance){
+        AtomicInteger dmgThisTurn = new AtomicInteger();
+        for(int x : playerInstance.heroesOnField){
+            switch(x){
+                case 0:
+                    dmgThisTurn.addAndGet(3);
+                    break;
+                case 1:
+                    dmgThisTurn.addAndGet(2);
+                    break;
+                case 2:
+                    dmgThisTurn.addAndGet(1);
+                    break;
+                case 3:
+                    dmgThisTurn.addAndGet(1);
+                    break;
+                case 4:
+                    dmgThisTurn.addAndGet(4);
+                    break;
+            }
+        }
+        return dmgThisTurn.get();
     }
 }

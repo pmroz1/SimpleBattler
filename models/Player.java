@@ -11,6 +11,7 @@ public class Player {
     public int health;
     public int gold;
     public int playerNumber;
+    public int enemyHealth;
     public Client cl;
 
     public ArrayList<Integer> listOfHeroes = new ArrayList<>();
@@ -26,6 +27,7 @@ public class Player {
     public Player(int hp, int g){
         this.health = hp;
         this.gold = g;
+        this.enemyHealth = 100;
         initHeroes();
         cl = new Client();
         cl.connectToServer();
