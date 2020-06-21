@@ -111,7 +111,7 @@ public class GameLogic {
         for(Hero x : playerInstance.enemyHeroesOnField){
             dmgThisTurn += x.Attack;
         }
-        return dmgThisTurn;
+        return (dmgThisTurn- playerInstance.defense > 0) ? dmgThisTurn- playerInstance.defense : 0;
     }
 
     public static int calculateEnemyHealth(Player playerInstance){
@@ -135,6 +135,38 @@ public class GameLogic {
                     break;
             }
         }
-        return dmgThisTurn.get();
+        return (dmgThisTurn.get()- playerInstance.enemyDefense > 0) ? dmgThisTurn.get()- playerInstance.enemyDefense : 0;
+    }
+
+    public static int calculateDefense(Player playerInstance){
+        AtomicInteger myDefense = new AtomicInteger();
+        for(int x : playerInstance.heroesOnField){
+            switch(x){
+                case 0:
+                    myDefense.addAndGet(1);
+                    break;
+                case 1:
+                    myDefense.addAndGet(2);
+                    break;
+                case 2:
+                    myDefense.addAndGet(1);
+                    break;
+                case 3:
+                    myDefense.addAndGet(5);
+                    break;
+                case 4:
+                    myDefense.addAndGet(5);
+                    break;
+            }
+        }
+        return (myDefense.get() >= 0) ? myDefense.get() : 0;
+    }
+
+    public static int calculateEnemyDefense(Player playerInstance) {
+        int defenseThisTurn = 0;
+        for (Hero x : playerInstance.enemyHeroesOnField) {
+            defenseThisTurn += x.Defense;
+        }
+        return defenseThisTurn;
     }
 }

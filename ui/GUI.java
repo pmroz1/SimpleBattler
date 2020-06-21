@@ -49,6 +49,7 @@ public class GUI extends JFrame {
     public JLabel GOLD;
     public JLabel HEALTH;
     public JLabel ENEMYHEALTH;
+    public JLabel defense;
 
     public ArrayList<JTextPane> allInfoPanels = new ArrayList<>();
 

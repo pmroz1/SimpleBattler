@@ -35,7 +35,7 @@ public class Client {
                 } else {
                     enemy = 1;
                 }
-                System.out.println("Connected to server #player : " + player + "\n\n");
+                //System.out.println("Connected to server #player : " + player + "\n\n");
             } catch (IOException e) {
                 System.out.println("Exception thrown from CSC" + e);
             }
@@ -54,7 +54,7 @@ public class Client {
             int n = -1;
             try {
                 n = dataIn.readInt();
-                System.out.println("Player #" + enemy + " clicked button #" + n);
+                //out.println("Player #" + enemy + " clicked button #" + n);
             } catch (IOException e) {
                 System.out.println("Exception form reciveBytton client : " + e);
             }

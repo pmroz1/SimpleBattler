@@ -12,6 +12,8 @@ public class Player {
     public int gold;
     public int playerNumber;
     public int enemyHealth;
+    public int defense;
+    public int enemyDefense;
     public Client cl;
 
     public ArrayList<Integer> listOfHeroes = new ArrayList<>();
@@ -28,11 +30,14 @@ public class Player {
         this.health = hp;
         this.gold = g;
         this.enemyHealth = 100;
+        this.defense = 0;
+        this.enemyDefense = 0;
+
         initHeroes();
         cl = new Client();
         cl.connectToServer();
         playerNumber = cl.player;
-        System.out.println("Im player no: " + playerNumber);
+        //System.out.println("Im player no: " + playerNumber);
     }
 
     public void initHeroes(){
@@ -61,6 +66,5 @@ public class Player {
                 }
             }
         }
-        System.out.println(Heroes);
     }
 }

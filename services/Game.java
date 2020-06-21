@@ -28,6 +28,7 @@ public class Game {
         ui.HEALTH = new JLabel("Your HP: \n" + playerInstance.health );
         ui.GOLD = new JLabel("Your Gold: \n" + playerInstance.gold );
         ui.ENEMYHEALTH = new JLabel("Enemy HP: \n" + playerInstance.enemyHealth);
+        ui.defense = new JLabel("Your defense: \n" + playerInstance.defense);
 
         if(playerInstance.playerNumber == 1){
             ui.systemInfo.setText("->You are player " + playerInstance.playerNumber + "\n->Waiting for second player");
@@ -38,6 +39,7 @@ public class Game {
         ui.statusBar.add(ui.HEALTH);
         ui.statusBar.add(ui.GOLD);
         ui.statusBar.add(ui.ENEMYHEALTH);
+        ui.statusBar.add(ui.defense);
     }
 
     public void handlePlayer(){ // handling player interactions
@@ -61,7 +63,6 @@ public class Game {
         int n = playerInstance.cl.csc.receiveButtonPressed();
 
         if( n == 69){
-            //ui.frame.setVisible(false);
             JFrame win = new JFrame();
             win.setSize(200,70);
             win.setResizable(false);
@@ -74,7 +75,6 @@ public class Game {
             }
             ui.gameLogs.setText("Enemy clicked button #" + n);
             ui.isMyTurn = true;
-            System.out.println("toggling in HT");
             GameLogic.toggleButtons(ui, playerInstance);
         }
     }
@@ -97,10 +97,17 @@ public class Game {
             playerInstance.listOfHeroes.add(whichObject);
             GameLogic.showHeroes(playerInstance, ui);
             GameLogic.checkIfEnoughGold(playerInstance, ui);
+
+
+
+            playerInstance.defense = GameLogic.calculateDefense(playerInstance);
+            playerInstance.enemyDefense = GameLogic.calculateEnemyDefense(playerInstance);
             playerInstance.health -= GameLogic.calculateDMG(playerInstance);
             playerInstance.enemyHealth -= GameLogic.calculateEnemyHealth(playerInstance);
+
             ui.HEALTH.setText("Your hp: "+playerInstance.health);
             ui.gameLogs.setText("You took " + GameLogic.calculateDMG(playerInstance) + " DMG");
+            ui.defense.setText("Your defense: \n" + playerInstance.defense);
             ui.ENEMYHEALTH.setText("Enemy HP: \n" + playerInstance.enemyHealth);
 
             if(playerInstance.health < 1){
