@@ -6,28 +6,43 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * <h1>GameServer</h1>
+ * Klasa - server odpowiedzialną za serwerową część działania gry.
+ * Klasę tę należy uruchomić w pierwszej kolejności
+ *
+ * @author  Piotr Mróz
+ * @since   2020-06-17
+ * */
+
 public class GameServer {
     private ServerSocket serverSocket; //socket
     private ServerSideCon player1; // inner classes for handling player connections
     private ServerSideCon player2;
-    private boolean GAMEON = true;
+    private boolean gameOn = true;
 
     private int playerOneButtonClicked;
-    private int playerTwoButtonClicked;
 
     //game variables
     private int connectedPlayers;
-    public GameServer(){
-        System.out.println("---running server---");
-        connectedPlayers = 0;
 
+    /**
+     * Konstruktor domyślny klasy serwer.
+     * Nie przyjmuje żadnych parametrów, odpowiada za stworzenie socket'a
+     */
+    public GameServer(){
+        //System.out.println("---running server---");
+        connectedPlayers = 0;
         try{
             serverSocket = new ServerSocket(6968); // we will use port 69686 for game
         }catch(IOException e){
             System.out.println("From Server constructor :\n" + e);
         }
     }
-    // connections handling
+
+    /**
+     * Metoda odpowiedzialna za przyjmowanie połączeń
+     */
     public void acceptConnections(){
         try{
             while(connectedPlayers < 3) {
@@ -49,12 +64,28 @@ public class GameServer {
         }
     }
 
+    /**
+     * <h1>ServerSideCon</h1>
+     * Klasa wewnętrzna, odpowiedzialna za zarządzanie połączeniami ze strony serwera
+     * @author  Piotr Mróz
+     * @version 1.0
+     * @since   2020-06-17
+     * */
     private class ServerSideCon implements Runnable{
         private Socket socket;
-        private int playerId;
+        private final int playerId;
         private DataInputStream dataIn;
         private DataOutputStream dataOut;
 
+
+        /**
+         * Konstruktor klasy
+         * Nie przyjmuje żadnych parametrów, odpowiada za stworzenie socket'a
+         * @param socketIn Socket : na którym chcemy operować
+         * @param data Int : numer ID gracza
+         * @exception IOException On input error.
+         * @see IOException
+         */
         public ServerSideCon(Socket socketIn, int data){
             socket = socketIn;
             playerId = data;
@@ -66,6 +97,11 @@ public class GameServer {
             }
         }
 
+        /**
+         * Metoda odpowiada za zamykanie połączeń z serwerem
+         * @exception IOException On input error.
+         * @see IOException
+         */
         public void closeConnection(){
             try{
                 socket.close();
@@ -75,16 +111,22 @@ public class GameServer {
             }
         }
 
+        /**
+         * Metoda odpowiedzialna za zarządzanie przesyłem danych.
+         * Nie przyjmuje żadnych parametrów.
+         * @exception IOException On input error.
+         * @see IOException
+         */
         public void run(){
             try{
                 dataOut.writeInt(playerId);
 
-                while(GAMEON){
+                while(gameOn){
                     if(playerId == 1){
                         playerOneButtonClicked = dataIn.readInt();
                         player2.sendButton(playerOneButtonClicked);
                     } else {
-                        playerTwoButtonClicked = dataIn.readInt();
+                        int playerTwoButtonClicked = dataIn.readInt();
                         player1.sendButton(playerTwoButtonClicked);
                     }
                 }
@@ -94,6 +136,13 @@ public class GameServer {
                 System.out.println("Exception in SSC run(f) : " + e);
             }
         }
+
+        /**
+         * Metoda wysyła wciśnięty przycisk(Jbutton)
+         * @param input Int : wciśnięty przycisk.
+         * @exception IOException On input error.
+         * @see IOException
+         */
         public void sendButton(int input){
             try{
                 dataOut.writeInt(input);
@@ -104,6 +153,12 @@ public class GameServer {
         }
     }
 
+    /**
+     * Metoda main rozpoczyna program
+     * @param args String[] : Nie używane.
+     * @exception IOException On input error.
+     * @see IOException
+     */
     public static void main(String[] args){
         GameServer gs = new GameServer();
         gs.acceptConnections();

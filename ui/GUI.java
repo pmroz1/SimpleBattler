@@ -7,6 +7,13 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * <h1>GUI</h1>
+ * Klasa odpowiedzialna za Graficzny Interfejs Użytkownika
+ * @author  Piotr Mróz
+ * @since   2020-06-17
+ * */
+@SuppressWarnings("deprecation")
 public class GUI extends JFrame {
     public int width; // width, height of client app interface
     public int height;
@@ -53,6 +60,10 @@ public class GUI extends JFrame {
 
     public ArrayList<JTextPane> allInfoPanels = new ArrayList<>();
 
+    /**
+     * Konstruktor domyślny klasy GUI.
+     * Nie przyjmuje żadnych parametrów, odpowiada za zainicjalizowanie GUI
+     */
     public GUI(int w, int h){
         this.width = w;
         this.height = h;
@@ -99,6 +110,9 @@ public class GUI extends JFrame {
         //info6.setText("\n\nUpgrade");
     }
 
+    /**
+     * Metoda ta jest wywoływana raz, na samym początku prrogramu w celu ustawienia i upozycjonowania całości interfejsu
+     */
     public void setUpUi(){
         this.setSize(width, height); // basic configuration
         this.setTitle("Simple Autobattler");
@@ -173,6 +187,9 @@ public class GUI extends JFrame {
         frame.show();
     }
 
+    /**
+     * Metoda przełączą przyciski na aktywne
+     */
     public void toggleButtonsEnabled(){ // makes buttons clickable or not :)
         button1.setEnabled(true);
         button2.setEnabled(true);
@@ -182,6 +199,9 @@ public class GUI extends JFrame {
         button6.setEnabled(true);
     }
 
+    /**
+     * Metoda przełącza przyciski na nieaktywne
+     */
     public void toggleButtonsNotEnabled(){ // makes buttons clickable or not :)
         button1.setEnabled(false);
         button2.setEnabled(false);
@@ -191,9 +211,12 @@ public class GUI extends JFrame {
         button6.setEnabled(false);
     }
 
+    /**
+     * próba rysowania postaci w polu GUI.Battleground
+     */
     public class drawer extends JPanel{
         private int squareX = 50;
-        private int squareY = 50;
+        private final int squareY = 50;
         private int squareW = 20;
         private int squareH = 20;
 

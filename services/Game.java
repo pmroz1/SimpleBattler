@@ -7,6 +7,13 @@ import com.company.main.ui.GUI;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
+/**
+ * <h1>Game</h1>
+ * Najważniejsza klasa tej gry, w niej wykonują się wszystkie znaczące operacje
+ * @author  Piotr Mróz
+ * @version 1.0
+ * @since   2020-06-17
+ * */
 public class Game {
     public int playerId = 1; //temp change later
     public int enemyId;
@@ -16,6 +23,11 @@ public class Game {
 
     String[] champs = {"Wizard", "Knight", "Fairy", "Warden", "Dragon", "NEXT TURN"};
 
+    /**
+     * Konstruktor domyślny klasy Game.
+     * Inicjalizuje podstawowe zmienne i przypisuje je do
+     * poszczególnych elemenów GUI
+     */
     public Game(){
         ui = new GUI(756,480);
         ui.setUpUi();
@@ -42,6 +54,9 @@ public class Game {
         ui.statusBar.add(ui.defense);
     }
 
+    /**
+     * Metoda odpowiedzialna za zainicjalizowanie klasy gracza
+     */
     public void handlePlayer(){ // handling player interactions
         playerInstance = new Player(100,100);
         if( playerInstance.playerNumber == 1){
@@ -55,6 +70,13 @@ public class Game {
         GameLogic.toggleButtons(ui, playerInstance);
     }
 
+    /**
+     * Metoda odpowiedzialna za komuniakcję GUI - Player
+     * sprawdza czy gracz ma wystarczającą ilośc złota.
+     * blokuje/odblokowuje przyciski.
+     * Sprawdza czy jest koniec gry
+     * Tworzy okienko Zwycięstwo/Porażka
+     */
     public void handleTurn() {
         GameLogic.checkIfEnoughGold(playerInstance, ui);
         if(!firstTurn){
@@ -79,6 +101,11 @@ public class Game {
         }
     }
 
+    /**
+     * Metoda "nasłuchuje" wciśniętych przycisków
+     * na podstawie czego wykonuje operacje takie jak obliczanie obrażeń,obrony
+     * tworzy nowy wątek któremu nakazuje wykonać funkcję handleTurn.
+     */
     public void buttonHandler(){
         ActionListener al = e -> {
             JButton buttonPressed = (JButton) e.getSource();
@@ -97,8 +124,6 @@ public class Game {
             playerInstance.listOfHeroes.add(whichObject);
             GameLogic.showHeroes(playerInstance, ui);
             GameLogic.checkIfEnoughGold(playerInstance, ui);
-
-
 
             playerInstance.defense = GameLogic.calculateDefense(playerInstance);
             playerInstance.enemyDefense = GameLogic.calculateEnemyDefense(playerInstance);
@@ -121,6 +146,7 @@ public class Game {
             } else {
                 playerInstance.cl.csc.sendButtonPressed(whichObject);
             }
+
             Thread th = new Thread(this::handleTurn);
             th.start();
         };

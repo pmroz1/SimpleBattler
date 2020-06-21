@@ -5,24 +5,41 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+
+/**
+ * <h1>GameServer</h1>
+ * Klasa - server odpowiedzialną za część klienta działania gry.
+ * Klasę tę jest wywoływana z klasy gracza( Player)
+ * @author  Piotr Mróz
+ * @since   2020-06-17
+ * */
 public class Client {
     public int player; // id of player
     public int enemy; // enemy player id
     public ClientSideCon csc;
 
+    /**
+     * Metoda tworzy nowe połączenie z serwerem
+     */
     public void connectToServer(){
         csc = new ClientSideCon();
-        System.out.println("-----Client-----");
     }
 
-    //inner class for handling client connection
+    /**
+     * <h1>ClientSideCon</h1>
+     * Klasa wewnętrzna, odpowiedzialna za zarządzanie połączeniami ze strony klienta
+     * @author  Piotr Mróz
+     * @since   2020-06-17
+     * */
     public class ClientSideCon {
         private Socket socket;
         private DataOutputStream dataOut;
         private DataInputStream dataIn;
 
+        /**
+         * konstruktor, tworzy nowe połączenie z serwerem
+         */
         public ClientSideCon() {
-            System.out.println("-----Client Running-----");
             try {
                 //get data streams
                 socket = new Socket("localhost", 6968);
@@ -41,6 +58,12 @@ public class Client {
             }
         }
 
+        /**
+         * Metoda wysyła wciśnięty przycisk(Jbutton)
+         * @param data Int : wciśnięty przycisk.
+         * @exception IOException On input error.
+         * @see IOException
+         */
         public void sendButtonPressed(int data){
             try{
                 dataOut.writeInt(data);
@@ -50,11 +73,15 @@ public class Client {
             }
         }
 
+        /**
+         * Metoda odbiera wciśnięty przycisk(Jbutton)
+         * @exception IOException On input error.
+         * @see IOException
+         */
         public int receiveButtonPressed() {
             int n = -1;
             try {
                 n = dataIn.readInt();
-                //out.println("Player #" + enemy + " clicked button #" + n);
             } catch (IOException e) {
                 System.out.println("Exception form reciveBytton client : " + e);
             }

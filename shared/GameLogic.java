@@ -7,7 +7,22 @@ import com.company.main.ui.GUI;
 import javax.swing.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
+/**
+ * <h1>GameLogic</h1>
+ * Klasa ta zawiera metody odpowiedzialne za logikę gry m.in
+ * obliczają dokładnie ilość życia, obrażeń bohatera i przeciwnika
+ * @author  Piotr Mróz
+ * @since   2020-06-17
+ * */
 public class GameLogic {
+
+    /**
+     * Metoda pobiera treść wciśniętego przycisku i zwraca jego ID
+     * zastosowano tu wyrażenie lambda
+     * @param str String : treść wciśniętego przycisku
+     * @return id przycisku
+     */
     public static int getPressedButton(String str){
         return switch (str) {
             case "3 gold" -> Heroes.Wizard.ordinal();
@@ -19,6 +34,13 @@ public class GameLogic {
             default -> 0;
         };
     }
+
+    /**
+     * Metoda pobiera treść wciśniętego przycisku i zwraca jego koszt zakupu bohatera
+     * zastosowano tu wyrażenie lambda
+     * @param str String : treść wciśniętego przycisku
+     * @return koszt przycisku
+     */
     public static int getHeroPrice(String str){
         return switch (str) {
             case "3 gold" -> 3;
@@ -31,18 +53,11 @@ public class GameLogic {
         };
     }
 
-    public static int getHeroByButton(int pressedButton){
-        return switch (pressedButton) {
-            case 1 -> Heroes.Wizard.ordinal();
-            case 2 -> Heroes.Knight.ordinal();
-            case 3 -> Heroes.Fairy.ordinal();
-            case 4 -> Heroes.Warden.ordinal();
-            case 5 -> Heroes.Dragon.ordinal();
-            case 6 -> Heroes.EndTurn.ordinal();
-            default -> 0;
-        };
-    }
-
+    /**
+     * Metoda wyświetla postacie gracza po jego stronie pola bitwy
+     * @param p Player : instancja gracza
+     * @param g GUI : instancja klasy GUI
+     */
     public static void showHeroes(Player p, GUI g){
         for(int x : p.listOfHeroes){
             switch(x){
@@ -62,7 +77,7 @@ public class GameLogic {
                     g.myHeroesOnField.add(new JLabel("Dragon"));
                     break;
                 case 5:
-                    //END TURN TODO
+                    //END TURN
                     break;
             }
 
@@ -76,6 +91,12 @@ public class GameLogic {
         p.listOfHeroes.clear();
     }
 
+    /**
+     * Sprawdza czy gracz ma wystarczającą ilość złota na zakup postaci
+     * -metoda wywoływana jest na początku każdej rundy
+     * @param playerInstance Player : instancja gracza
+     * @param ui GUI : instancja klasy GUI
+     */
     public static void checkIfEnoughGold(Player playerInstance, GUI ui){
         if(playerInstance.gold < 3){
             ui.button1.setEnabled(false);
@@ -97,6 +118,11 @@ public class GameLogic {
         }
     }
 
+    /**
+     * Metoda Przełącza przyciski na początku rundy na aktywne
+     * @param playerInstance Player : instancja gracza
+     * @param ui GUI : instancja klasy GUI
+     */
     public static void toggleButtons(GUI ui, Player playerInstance){
         if(ui.isMyTurn){
             ui.toggleButtonsEnabled();
@@ -106,62 +132,62 @@ public class GameLogic {
         }
     }
 
+    /**
+     * Metoda oblicza wartość obrażeń gracza iterując listę jego postaci
+     * @param playerInstance Player : instancja gracza
+     * @return obrazenia gracza w tej turze(INT)
+     */
     public static int calculateDMG(Player playerInstance){
         int dmgThisTurn = 0;
         for(Hero x : playerInstance.enemyHeroesOnField){
             dmgThisTurn += x.Attack;
         }
-        return (dmgThisTurn- playerInstance.defense > 0) ? dmgThisTurn- playerInstance.defense : 0;
+        return Math.max(dmgThisTurn - playerInstance.defense, 0);
     }
 
+    /**
+     * Metoda oblicza wartość hp przeciwnika
+     * @param playerInstance Player : instancja gracza
+     * @return hp przeciwnika
+     */
     public static int calculateEnemyHealth(Player playerInstance){
         AtomicInteger dmgThisTurn = new AtomicInteger();
         for(int x : playerInstance.heroesOnField){
-            switch(x){
-                case 0:
-                    dmgThisTurn.addAndGet(3);
-                    break;
-                case 1:
-                    dmgThisTurn.addAndGet(2);
-                    break;
-                case 2:
-                    dmgThisTurn.addAndGet(1);
-                    break;
-                case 3:
-                    dmgThisTurn.addAndGet(1);
-                    break;
-                case 4:
-                    dmgThisTurn.addAndGet(4);
-                    break;
+            switch (x) {
+                case 0 -> dmgThisTurn.addAndGet(3);
+                case 1 -> dmgThisTurn.addAndGet(2);
+                case 2 -> dmgThisTurn.addAndGet(1);
+                case 3 -> dmgThisTurn.addAndGet(1);
+                case 4 -> dmgThisTurn.addAndGet(4);
             }
         }
-        return (dmgThisTurn.get()- playerInstance.enemyDefense > 0) ? dmgThisTurn.get()- playerInstance.enemyDefense : 0;
+        return Math.max(dmgThisTurn.get() - playerInstance.enemyDefense, 0);
     }
 
+    /**
+     * Metoda oblicza wartość obrony gracza iterując listę jego postaci
+     * @param playerInstance Player : instancja gracza
+     * @return obrona gracza w tej turze
+     */
     public static int calculateDefense(Player playerInstance){
         AtomicInteger myDefense = new AtomicInteger();
         for(int x : playerInstance.heroesOnField){
-            switch(x){
-                case 0:
-                    myDefense.addAndGet(1);
-                    break;
-                case 1:
-                    myDefense.addAndGet(2);
-                    break;
-                case 2:
-                    myDefense.addAndGet(1);
-                    break;
-                case 3:
-                    myDefense.addAndGet(5);
-                    break;
-                case 4:
-                    myDefense.addAndGet(5);
-                    break;
+            switch (x) {
+                case 0 -> myDefense.addAndGet(1);
+                case 1 -> myDefense.addAndGet(2);
+                case 2 -> myDefense.addAndGet(1);
+                case 3 -> myDefense.addAndGet(5);
+                case 4 -> myDefense.addAndGet(5);
             }
         }
-        return (myDefense.get() >= 0) ? myDefense.get() : 0;
+        return Math.max(myDefense.get(), 0);
     }
 
+    /**
+     * Metoda oblicza wartość obrony przeciwnika iterując listę jego postaci
+     * @param playerInstance Player : instancja gracza
+     * @return obrona przeciwnika w tej turze
+     */
     public static int calculateEnemyDefense(Player playerInstance) {
         int defenseThisTurn = 0;
         for (Hero x : playerInstance.enemyHeroesOnField) {

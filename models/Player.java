@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <h1>Player</h1>
+ * Klasa zawiera wszystkie informacje niezbętne do obsługi gracza
+ * @author  Piotr Mróz
+ * @since   2020-06-17
+ * */
 public class Player {
     public int health;
     public int gold;
@@ -25,7 +31,11 @@ public class Player {
     public ArrayList<Hero> Heroes = new ArrayList<>();
 
 
-    // set ups values
+    /**
+     * konstruktor, inicjuje takie zmienne jak hp, gold, defense
+     * @param hp INT : zdrowie gracza
+     * @param g INt : złoto gracza
+     */
     public Player(int hp, int g){
         this.health = hp;
         this.gold = g;
@@ -40,6 +50,9 @@ public class Player {
         //System.out.println("Im player no: " + playerNumber);
     }
 
+    /**
+     * metod inicjalizuję listę(Hero) postaci
+     */
     public void initHeroes(){
         int i;
         for (i = 0 ; i< 5; ++i){
